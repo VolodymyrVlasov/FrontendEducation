@@ -1,4 +1,3 @@
-// import {ITask} from "./webapp/Task.js";
 import {Lang, TaskType} from "./webapp/Enums.js";
 import {ArrayOffset} from "./tasks/task_2/ArrayOffset.js";
 import {TestBlockChain} from "./tasks/task_1/Block.js";
@@ -6,7 +5,6 @@ import {AbstractTask} from "./webapp/AbstractTask.js";
 
 let tsCnt: HTMLElement | null = document.getElementById('ts_root')
 let jsCnt: HTMLElement | null = document.getElementById('js_root')
-
 
 export const taskList = new Map<Number, AbstractTask>()
 new ArrayOffset(TaskType.ARRAY_MOVER)

@@ -1,7 +1,5 @@
-// import {ITask} from "../../webapp/Task";
 import {Lang, TaskType} from "../../webapp/Enums.js";
 import {AbstractTask} from "../../webapp/AbstractTask.js";
-
 
 class Block {
     name: String
