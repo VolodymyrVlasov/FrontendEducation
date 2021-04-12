@@ -1,54 +1,46 @@
-import {Task} from "./webapp/Task.js";
-import {Lang, TASKS} from "./webapp/Enums.js";
+// import {ITask} from "./webapp/Task.js";
+import {Lang, TaskType} from "./webapp/Enums.js";
+import {ArrayOffset} from "./tasks/task_2/ArrayOffset.js";
+import {TestBlockChain} from "./tasks/task_1/Block.js";
+import {AbstractTask} from "./webapp/AbstractTask.js";
 
 let tsCnt: HTMLElement | null = document.getElementById('ts_root')
 let jsCnt: HTMLElement | null = document.getElementById('js_root')
 
-const tasks: Task[] = [
-    {
-        id: TASKS.ARRAY_MOVER,
-        language: Lang.TS,
-        title: 'Array mover',
-        description: 'move elements in array at 3 position',
 
-    },
-    {
-        id: TASKS.BLOCKCHAIN,
-        language: Lang.TS,
-        title: 'Blockchain system',
-        description: 'script that will define a simple blockchain structure',
-
-    },
-]
+export const taskList = new Map<TaskType, AbstractTask>()
+new ArrayOffset(TaskType.ARRAY_MOVER)
+new TestBlockChain(TaskType.BLOCKCHAIN)
 
 class TaskManager {
     // create cards with tasks
     static renderCards() {
+        taskList.forEach((value: AbstractTask, key: TaskType) => {
+            this.renderCardItem(value)
+        })
+    }
 
-        tasks.forEach((e) => {
-            let card = document.createElement('div')
-            card.innerHTML = `
+    static renderCardItem(task: AbstractTask) {
+        let card = document.createElement('div')
+        card.innerHTML = `
                  <div class="task_card">
-                        <div class="${e.language == Lang.TS ? 'ts_logo' : 'js_logo'}">
-                            <span class="logo_text">${e.language}</span>
+                        <div class="${task.language == Lang.TS ? 'ts_logo' : 'js_logo'}">
+                            <span class="logo_text">${task.language}</span>
                         </div>
                         <div class="task_info">
-                            <p class="title_text">${e.title}</p>
+                            <p class="title_text">${task.title}</p>
                             <div class="description">
-                                <p class="simple_text">${e.description}</p>
+                                <p class="simple_text">${task.description}</p>
                             </div>
-                            <button class="button" name="task_btn" id="${e.id}">View</button>
+                            <button class="button" name="task_btn" id="${task.type}">View</button>
                         </div>
                     </div>
                 `
-            if (e.language == Lang.TS) {
-                tsCnt?.appendChild(card)
-            } else if (e.language == Lang.JS) {
-                jsCnt?.appendChild(card)
-
-
-            }
-        })
+        if (task.language == Lang.TS) {
+            tsCnt?.appendChild(card)
+        } else if (task.language == Lang.JS) {
+            jsCnt?.appendChild(card)
+        }
     }
 }
 
@@ -60,14 +52,13 @@ document.getElementsByName('task_btn').forEach((e) => {
 
 const startTask = (taskId: string) => {
 
-    for (let tasksKey in TASKS) {
+
+    for (let tasksKey in TaskType) {
         if (tasksKey == taskId) {
             console.log(tasksKey)
             // start this task
+            // taskList.get()
+
         }
     }
-
 }
-
-
-//add event listener for all buttons 'View', and when it will be clicked call class

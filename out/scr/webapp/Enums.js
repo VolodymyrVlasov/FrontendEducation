@@ -1,8 +1,8 @@
-export var TASKS;
-(function (TASKS) {
-    TASKS[TASKS["BLOCKCHAIN"] = 0] = "BLOCKCHAIN";
-    TASKS[TASKS["ARRAY_MOVER"] = 1] = "ARRAY_MOVER";
-})(TASKS || (TASKS = {}));
+export var TaskType;
+(function (TaskType) {
+    TaskType[TaskType["BLOCKCHAIN"] = 0] = "BLOCKCHAIN";
+    TaskType[TaskType["ARRAY_MOVER"] = 1] = "ARRAY_MOVER";
+})(TaskType || (TaskType = {}));
 export var Lang;
 (function (Lang) {
     Lang["JS"] = "JS";

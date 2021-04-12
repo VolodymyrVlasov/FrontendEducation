@@ -1,8 +1,10 @@
-import {Lang, TASKS} from "./Enums.js";
+import {Lang, TaskType} from "./Enums.js";
 
-export interface Task {
-    title: string
-    description: string
-    id: TASKS
-    language: Lang
-}
+// export interface ITask {
+//     title: string
+//     description: string
+//     type: TaskType
+//     language: Lang
+//
+//     renderContainer(): void
+// }

@@ -1,4 +1,4 @@
-export enum TASKS {
+export enum TaskType {
     BLOCKCHAIN,
     ARRAY_MOVER
 }
