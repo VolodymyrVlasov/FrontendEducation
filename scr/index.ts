@@ -8,14 +8,13 @@ let tsCnt: HTMLElement | null = document.getElementById('ts_root')
 let jsCnt: HTMLElement | null = document.getElementById('js_root')
 
 
-export const taskList = new Map<TaskType, AbstractTask>()
+export const taskList = new Map<Number, AbstractTask>()
 new ArrayOffset(TaskType.ARRAY_MOVER)
 new TestBlockChain(TaskType.BLOCKCHAIN)
 
 class TaskManager {
-    // create cards with tasks
     static renderCards() {
-        taskList.forEach((value: AbstractTask, key: TaskType) => {
+        taskList.forEach((value: AbstractTask, key: Number) => {
             this.renderCardItem(value)
         })
     }
@@ -47,18 +46,7 @@ class TaskManager {
 TaskManager.renderCards()
 
 document.getElementsByName('task_btn').forEach((e) => {
-    e.addEventListener('click', () => startTask(e.id))
+    e.addEventListener('click', () => taskList.get(Number(e.id))?.renderContainer())
 })
 
-const startTask = (taskId: string) => {
 
-
-    for (let tasksKey in TaskType) {
-        if (tasksKey == taskId) {
-            console.log(tasksKey)
-            // start this task
-            // taskList.get()
-
-        }
-    }
-}
