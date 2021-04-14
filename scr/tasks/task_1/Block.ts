@@ -22,7 +22,7 @@ class BlockChain {
     private currentBlock?: Block
 
     public static getInstance(): BlockChain {
-        if(this.instance == undefined) {
+        if (this.instance == undefined) {
             this.instance = new BlockChain()
         }
         return this.instance
@@ -41,22 +41,47 @@ class BlockChain {
         console.log(this.currentBlock)
     }
 
-    getPreviousBlock() : Block | undefined {
+    getPreviousBlock(): Block | undefined {
         return this.previousBlock
     }
 }
 
-export class TestBlockChain extends AbstractTask{
+export class TestBlockChain extends AbstractTask {
+    title: string = "Blockchain system"
+    description: string = "script that will define a simple blockchain structure"
+    language: Lang = Lang.TS
+    type: TaskType = TaskType.BLOCKCHAIN
+    htmlPart: boolean = false;
+
+
+    static showHtml(htmlPart: boolean) {
+        if (htmlPart) {
+            let rootCnt = document?.getElementById('root_cnt')
+            if (rootCnt != null) {
+               //append inner content here
+            }
+        } else {
+            alert('Please, open colsole to view result')
+        }
+    }
+
+    renderContainer(): void {
+        console.log('Test blockchain...')
+        TestBlockChain.autoTesting(5)
+        TestBlockChain.manualTesting()
+        TestBlockChain.showHtml(this.htmlPart);
+    };
+
     static autoTesting(transactionQuantity: Number) {
         let blockChain: BlockChain = BlockChain.getInstance()
         let prevBlock: Block | undefined = undefined
 
         for (let i = 0; i < transactionQuantity; i++) {
             // @ts-ignore
-            let newBlock = new Block(`Block #${i + 1}`, new Date(), i / Math.random(), blockChain.getPreviousBlock() )
-             blockChain.addBlock(newBlock)
+            let newBlock = new Block(`Block #${i + 1}`, new Date(), i / Math.random(), blockChain.getPreviousBlock())
+            blockChain.addBlock(newBlock)
             // prevBlock = newBlock
-           blockChain.printBlock()
+            blockChain.printBlock()
         }
     }
 
@@ -76,15 +101,6 @@ export class TestBlockChain extends AbstractTask{
 
     }
 
-    description: string = "";
-    language: Lang = Lang.TS;
-    title: string = "";
-    type: TaskType =  TaskType.BLOCKCHAIN;
-    renderContainer(): void {
-        console.log('Test blockchain...')
-        TestBlockChain.autoTesting(5)
-        TestBlockChain.manualTesting()
-    };
 }
 
 

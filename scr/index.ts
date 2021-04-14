@@ -18,25 +18,60 @@ class TaskManager {
     }
 
     static renderCardItem(task: AbstractTask) {
-        let card = document.createElement('div')
-        card.innerHTML = `
-                 <div class="task_card">
-                        <div class="${task.language == Lang.TS ? 'ts_logo' : 'js_logo'}">
-                            <span class="logo_text">${task.language}</span>
-                        </div>
-                        <div class="task_info">
-                            <p class="title_text">${task.title}</p>
-                            <div class="description">
-                                <p class="simple_text">${task.description}</p>
-                            </div>
-                            <button class="button" name="task_btn" id="${task.type}">View</button>
-                        </div>
-                    </div>
-                `
+        let taskCard = document.createElement('div')
+        taskCard.className = 'task_card'
+
+        let languageLogo = document.createElement('div')
+        languageLogo.className = task.language == Lang.TS ? 'ts_logo' : 'js_logo'
+
+        let languageName = document.createElement('span')
+        languageName.innerHTML = task.language
+        languageName.className = 'logo_text'
+
+        languageLogo.appendChild(languageName)
+
+        let taskInfo = document.createElement('div')
+        taskInfo.className = 'task_info'
+
+        let taskTitle = document.createElement('p')
+        taskTitle.innerHTML = task.title
+        taskTitle.className = 'title_text'
+
+        let taskDescription = document.createElement('p')
+        taskDescription.innerHTML = task.description
+        taskDescription.className = 'description simple_text'
+
+        let taskButton = document.createElement('button')
+        taskButton.name = 'task_btn'
+        taskButton.id = task.type.toString()
+        taskButton.innerHTML = 'Test me'
+        taskButton.className = 'button'
+
+
+        taskInfo.appendChild(taskTitle)
+        taskInfo.appendChild(taskDescription)
+        taskInfo.appendChild(taskButton)
+
+        taskCard.appendChild(languageLogo)
+        taskCard.appendChild(taskInfo)
+
+//      let card = document.createElement('div')
+//         card.innerHTML = `
+//                  <div class="task_card">
+//                         <div class="${task.language == Lang.TS ? 'ts_logo' : 'js_logo'}">
+//                             <span class="logo_text">${task.language}</span>
+//                         </div>
+//                         <div class="task_info">
+//                             <p class="title_text">${task.title}</p>
+//                             <p class="description simple_text">${task.description}</p>
+//                             <button class="button" name="task_btn" id="${task.type}">View</button>
+//                         </div>
+//                     </div>
+//                 `
         if (task.language == Lang.TS) {
-            tsCnt?.appendChild(card)
+            tsCnt?.appendChild(taskCard)
         } else if (task.language == Lang.JS) {
-            jsCnt?.appendChild(card)
+            jsCnt?.appendChild(taskCard)
         }
     }
 }
