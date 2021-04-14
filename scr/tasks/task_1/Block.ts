@@ -59,7 +59,6 @@ export class TestBlockChain extends AbstractTask {
             let rootCnt = document?.getElementById('root_cnt')
             if (rootCnt != null) {
                //append inner content here
-
             }
         } else {
             alert('Please, open colsole to view result')
