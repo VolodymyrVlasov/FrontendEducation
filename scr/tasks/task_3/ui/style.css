@@ -1,0 +1,71 @@
+.u_card {
+    width: 300px;
+    height: 500px;
+    max-height: 500px;
+    margin-top: 50px;
+}
+
+.u_root {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.img {
+    object-fit: cover;
+    width: 300px;
+    height: 400px;
+    max-height: 400px;
+}
+
+.u_likes {
+    height: 16px;
+    margin-right: 7px;
+}
+
+.u_username {
+    color: white;
+    font-size: 18px;
+}
+
+.u_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.u_row_description{
+    height: 30px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.u_description {
+    color: gray;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.fake_button {
+    display: block;
+    width: 65px;
+    height: 30px;
+    color: gray;
+    background-color: black;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 30px;
+    border-radius: 3px;
+    border: 1px solid gray;
+    text-align: center;
+    transition: all .15s;
+}
+
+.fake_button:hover {
+    color: black;
+    background-color: white;
+
+}

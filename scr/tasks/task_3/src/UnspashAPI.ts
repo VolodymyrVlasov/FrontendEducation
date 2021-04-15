@@ -3,31 +3,28 @@ export interface UnsplashUrls {
     full: string
     regular: string
     small: string
-    thumb: string
 }
 export interface UnsplashUser {
     username: string
-    name: string
-    location: string
 }
 
 export interface UnsplashRandomPhotoResponse {
-    downloads: number
+    alt_description: string
     likes: number
-    description: string
+
     urls: UnsplashUrls
     user: UnsplashUser
 }
 
 export interface HttpResponse<T> extends Response {
-    jsonBody?: T;
+    jsonBody?: T[];
 }
 
 export interface IApi {
     getImageAPIData<T>(request: Request): Promise<HttpResponse<T>>
 }
 
-export class Api implements IApi{
+export class UnspashAPI implements IApi{
     public async getImageAPIData<T>(request: Request): Promise<HttpResponse<T>> {
         return HttpApi.request(request);
     }

@@ -7,22 +7,26 @@ export class ArrayOffset extends AbstractTask{
     language: Lang = Lang.TS
     type: TaskType = TaskType.ARRAY_MOVER
     htmlPart: boolean = false;
+    githubLink: string = ""
 
-    static showHtml(htmlPart: boolean) {
+    renderContainer(htmlPart: boolean): void {
+        console.log('Test array offset')
+        ArrayOffset.moveArray()
+
         if (htmlPart) {
             let rootCnt = document?.getElementById('root_cnt')
+            // @ts-ignore
+            let gitLink: HTMLLinkElement | null = document.getElementById('git')
+
+            if (gitLink != null) {
+                gitLink.href = this.githubLink
+            }
             if (rootCnt != null) {
                 //append inner content here
             }
         } else {
             alert('Please, open colsole to view result')
         }
-    }
-
-    renderContainer(): void {
-        console.log('Test array offset')
-        ArrayOffset.moveArray()
-        ArrayOffset.showHtml(this.htmlPart);
     }
 
     static  moveArray() {
