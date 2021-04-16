@@ -33,6 +33,8 @@ export class UnspashAPI implements IApi{
 export class HttpApi {
     static async request<T>(request: Request): Promise<HttpResponse<T>> {
         const response: HttpResponse<T> = await fetch(request);
+        console.log(response);
+        
         response.jsonBody = await response.json();
         return response;
     }

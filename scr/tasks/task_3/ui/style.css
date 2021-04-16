@@ -2,7 +2,40 @@
     width: 300px;
     height: 500px;
     max-height: 500px;
+    margin: 0 auto;
     margin-top: 50px;
+    border-radius: 25px;
+    overflow: hidden;
+    background-repeat: no-repeat !important; 
+    background-position: center !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+    transition: all .25s;    
+}
+
+.u_card:hover{
+    transform: scale(1.1);
+}
+
+.u_gradient {
+    position: relative;
+    padding: 15px;
+    height: 470px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 14%, rgba(0,0,0,0) 100%);  
+}
+
+.u_gradient:hover{
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.75) 14%, rgba(0,0,0,0) 100%);
+}
+
+.u_info{
+    position: absolute;
+    bottom: 0;
+    width: 270px;
+    height: fit-content;
+    margin-bottom: 15px;
 }
 
 .u_root {
@@ -21,19 +54,27 @@
 }
 
 .u_likes {
+    line-height: 30px;
+    color: white;
+}
+
+.u_likes>img {
     height: 16px;
     margin-right: 7px;
 }
 
 .u_username {
     color: white;
-    font-size: 18px;
+    font-size: 24px;
+    line-height: 30px;
+
 }
 
 .u_row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 100%;
     margin-top: 15px;
 }
 
@@ -44,24 +85,26 @@
 }
 
 .u_description {
-    color: gray;
+    color: white;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 200;
 }
 
 .fake_button {
     display: block;
-    width: 65px;
+    width: 22%;
     height: 30px;
-    color: gray;
-    background-color: black;
+    color: white;
+    background-color: transparent;
     font-size: 14px;
+    margin-top: 10px;
     text-decoration: none;
     line-height: 30px;
-    border-radius: 3px;
-    border: 1px solid gray;
+    border-radius: 15px;
+    border: 1px solid white;
     text-align: center;
     transition: all .15s;
+    font-weight: 300;
 }
 
 .fake_button:hover {
