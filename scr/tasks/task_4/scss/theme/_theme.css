@@ -1,0 +1,10 @@
+body, button {
+    margin: 0;
+    padding: 0;
+}
+
+.width-cnt {
+    width: 1025px;
+    margin: 0 auto;
+  }
+  
