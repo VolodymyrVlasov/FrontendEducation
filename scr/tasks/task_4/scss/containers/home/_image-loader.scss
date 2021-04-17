@@ -1,0 +1,20 @@
+.banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    &-title {
+      position: absolute;
+      text-align: center;
+  
+      h1 {
+        color: #fff;
+        font-size: 80px;
+      }
+    }
+  
+    img {
+      width: 100%;
+    }
+  }
