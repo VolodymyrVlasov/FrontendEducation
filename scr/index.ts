@@ -3,6 +3,7 @@ import {ArrayOffset} from "./tasks/task_2/ArrayOffset.js";
 import {TestBlockChain} from "./tasks/task_1/Block.js";
 import {AbstractTask} from "./webapp/AbstractTask.js";
 import {TestUnsplash} from "./tasks/task_3/TestUnsplash.js";
+import { TestEStore } from "./tasks/task_4/src/TestEStore.js";
 
 let tsCnt: HTMLElement | null = document.getElementById('ts_root')
 let jsCnt: HTMLElement | null = document.getElementById('js_root')
@@ -11,6 +12,7 @@ export const taskList = new Map<Number, AbstractTask>()
 new ArrayOffset(TaskType.ARRAY_MOVER)
 new TestBlockChain(TaskType.BLOCKCHAIN)
 new TestUnsplash(TaskType.UNSPLASH)
+new TestEStore(TaskType.ESTORE)
 
 class TaskManager {
     static renderCards() {

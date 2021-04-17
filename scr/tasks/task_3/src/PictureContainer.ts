@@ -18,7 +18,6 @@ export class PictureContainer {
             }
         )
 
-
         console.log(request);
         
         this.unsplashApi.getImageAPIData<UnsplashRandomPhotoResponse>(request)
