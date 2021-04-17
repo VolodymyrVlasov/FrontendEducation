@@ -51,28 +51,32 @@ export class TestBlockChain extends AbstractTask {
     description: string = "script that will define a simple blockchain structure"
     language: Lang = Lang.TS
     type: TaskType = TaskType.BLOCKCHAIN
-    htmlPart: boolean = false;
+    htmlPart: boolean = false
+    githubLink: string = ''
 
+    renderContainer(htmlPart: boolean): void {
+        console.log('Test blockchain...')
+        TestBlockChain.autoTesting(5)
+        TestBlockChain.manualTesting()
 
-    static showHtml(htmlPart: boolean) {
         if (htmlPart) {
             let rootCnt = document?.getElementById('root_cnt')
+            // @ts-ignore
+            let gitLink: HTMLLinkElement | null = document.getElementById('git')
+            
+            if (gitLink != null) {
+                gitLink.href = this.githubLink
+            }
             if (rootCnt != null) {
-               //append inner content here
+                //append inner content here
             }
         } else {
             alert('Please, open colsole to view result')
         }
-    }
-
-    renderContainer(): void {
-        console.log('Test blockchain...')
-        TestBlockChain.autoTesting(5)
-        TestBlockChain.manualTesting()
-        TestBlockChain.showHtml(this.htmlPart);
     };
 
     static autoTesting(transactionQuantity: Number) {
+        console.log('auto testing...')
         let blockChain: BlockChain = BlockChain.getInstance()
         let prevBlock: Block | undefined = undefined
 
@@ -80,12 +84,12 @@ export class TestBlockChain extends AbstractTask {
             // @ts-ignore
             let newBlock = new Block(`Block #${i + 1}`, new Date(), i / Math.random(), blockChain.getPreviousBlock())
             blockChain.addBlock(newBlock)
-            // prevBlock = newBlock
             blockChain.printBlock()
         }
     }
 
     static manualTesting() {
+        console.log('manual testing...')
         // @ts-ignore
         let bl0 = new Block("Block 1", new Date(), 10)
         // @ts-ignore
@@ -98,9 +102,7 @@ export class TestBlockChain extends AbstractTask {
         let bl4 = new Block("Block 5", new Date(), 50, bl3)
 
         console.log(bl0, bl1, bl2, bl3, bl4)
-
     }
-
 }
 
 

@@ -2,6 +2,7 @@ import {Lang, TaskType} from "./webapp/Enums.js";
 import {ArrayOffset} from "./tasks/task_2/ArrayOffset.js";
 import {TestBlockChain} from "./tasks/task_1/Block.js";
 import {AbstractTask} from "./webapp/AbstractTask.js";
+import {TestUnsplash} from "./tasks/task_3/TestUnsplash.js";
 
 let tsCnt: HTMLElement | null = document.getElementById('ts_root')
 let jsCnt: HTMLElement | null = document.getElementById('js_root')
@@ -9,6 +10,7 @@ let jsCnt: HTMLElement | null = document.getElementById('js_root')
 export const taskList = new Map<Number, AbstractTask>()
 new ArrayOffset(TaskType.ARRAY_MOVER)
 new TestBlockChain(TaskType.BLOCKCHAIN)
+new TestUnsplash(TaskType.UNSPLASH)
 
 class TaskManager {
     static renderCards() {
@@ -46,8 +48,7 @@ class TaskManager {
         taskButton.id = task.type.toString()
         taskButton.innerHTML = 'Test me'
         taskButton.className = 'button'
-
-
+        
         taskInfo.appendChild(taskTitle)
         taskInfo.appendChild(taskDescription)
         taskInfo.appendChild(taskButton)
@@ -79,7 +80,12 @@ class TaskManager {
 TaskManager.renderCards()
 
 document.getElementsByName('task_btn').forEach((e) => {
-    e.addEventListener('click', () => taskList.get(Number(e.id))?.renderContainer())
+    e.addEventListener('click', () => {
+        let task = taskList.get(Number(e.id))
+        if (task != null) {
+            task.renderContainer(task.htmlPart)
+        }
+    })
 })
 
 

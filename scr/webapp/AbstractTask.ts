@@ -7,9 +7,11 @@ export abstract class AbstractTask {
     abstract title: string
     abstract type: TaskType
     abstract htmlPart: boolean
-    abstract renderContainer(): void
+    abstract githubLink: string
+    abstract renderContainer(htmlPart: boolean): void
 
     constructor(type: TaskType) {
         taskList.set(type, this)
     }
+
 }
