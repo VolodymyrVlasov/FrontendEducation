@@ -1,0 +1,94 @@
+body, button {
+  margin: 0;
+  padding: 0;
+}
+
+.width-cnt {
+  width: 1025px;
+  margin: 0 auto;
+}
+
+.banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner-title {
+  position: absolute;
+  text-align: center;
+}
+.banner-title h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+  color: #fff;
+}
+.banner img {
+  width: 100%;
+}
+
+body, button {
+  margin: 0;
+  padding: 0;
+}
+
+.width-cnt {
+  width: 1025px;
+  margin: 0 auto;
+}
+
+body, button {
+  margin: 0;
+  padding: 0;
+}
+
+.width-cnt {
+  width: 1025px;
+  margin: 0 auto;
+}
+
+.theme-btn {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  color: #fff;
+  background-color: #0E49B5;
+  border-radius: 12px;
+  padding: 15px 40px;
+  border: none;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+.theme-btn:hover {
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.header {
+  height: 80px;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+}
+.header-nav .cart button {
+  padding: 6px;
+  border: 2px solid #959595;
+  border-radius: 50%;
+  background: transparent;
+  height: 40px;
+  width: 40px;
+}
+.header-nav .cart img {
+  height: 25px;
+  width: 25px;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+/*# sourceMappingURL=styles.css.map */

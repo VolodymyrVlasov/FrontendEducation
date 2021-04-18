@@ -1,3 +1,5 @@
+@import "../../theme/_theme-dir";
+
 .banner {
     position: relative;
     display: flex;
@@ -9,8 +11,7 @@
       text-align: center;
   
       h1 {
-        color: #fff;
-        font-size: 80px;
+        @include typo-h1;
       }
     }
   
