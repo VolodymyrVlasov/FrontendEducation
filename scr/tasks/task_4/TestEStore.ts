@@ -1,5 +1,5 @@
-import { AbstractTask } from "../../../webapp/AbstractTask.js";
-import { Lang, TaskType } from "../../../webapp/Enums.js";
+import { AbstractTask } from "../../webapp/AbstractTask.js";
+import { Lang, TaskType } from "../../webapp/Enums.js";
 
 export class TestEStore extends AbstractTask {
     
