@@ -1,2 +1,5 @@
 out/*
 .idea/*
+scr/tasks/task_4/node_modules
+scr/tasks/task_4/package.json
+scr/tasks/task_4/yarn.lock
