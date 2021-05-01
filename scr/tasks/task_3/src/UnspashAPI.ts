@@ -11,7 +11,6 @@ export interface UnsplashUser {
 export interface UnsplashRandomPhotoResponse {
     alt_description: string
     likes: number
-
     urls: UnsplashUrls
     user: UnsplashUser
 }

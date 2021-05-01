@@ -1,0 +1,28 @@
+@import "variables";
+
+
+@mixin typo( $font-size: 18px, $font-weight: normal, $color: black) {
+  font-family: $font-family;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  color:$color;
+}
+
+
+@mixin typo-h1 {
+  @include typo(60px, bold, #fff);
+}
+
+@mixin flex($direction: row){
+  display: flex;
+  flex-direction: $direction;
+}
+
+@mixin card($margin-top) {
+  padding: 8px 8px;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid $gray;
+  box-shadow: 0 0 3px 3px $gray;
+  margin-top: $margin-top;
+}

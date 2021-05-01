@@ -1,0 +1,21 @@
+@import "../../theme/_theme-dir";
+
+.banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    &-title {
+      position: absolute;
+      text-align: center;
+  
+      h1 {
+        @include typo-h1;
+      }
+    }
+  
+    img {
+      width: 100%;
+    }
+  }

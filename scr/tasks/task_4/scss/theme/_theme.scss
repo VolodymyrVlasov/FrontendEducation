@@ -1,0 +1,21 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body, button, ul {
+  margin: 0;
+  padding: 0;
+}
+
+.width-cnt {
+  width: 1025px;
+  margin: 0 auto;
+  position: relative;
+
+  @media only screen and (max-width: 640px) {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
