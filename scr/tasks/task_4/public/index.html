@@ -117,19 +117,19 @@
 
             <div class="searchbar">
                 <div class="searchbar-icon"></div>
-                <label class="searchbar-input" for="searchbar">
-                    <input type="text" name="searchbar" id="searchbar" placeholder="Enter device name...">
+                <label class="searchbar-input" for="searchbar_input">
+                    <input type="text" name="searchbar" id="searchbar_input" placeholder="Enter device name...">
                 </label>
                 <div class="searchbar-btn">
-                    <button class="searchbar-btn-sort"></button>
-                    <button class="searchbar-btn-settings"></button>
+                    <button class="searchbar-btn-sort" id="search_sort_btn"></button>
+                    <button class="searchbar-btn-settings" id="search_settings_btn"></button>
                 </div>
             </div>
 
             <div>
-                <div class="popup">
+                <div class="popup-hidden" id="sort_popup_menu">
                     <div class="popup-title">Order</div>
-                    <ul class="popup-items">
+                    <ul class="popup-items" id="sorting_type">
                         <li class="popup-items-item">
                             <div>Default</div>
                         </li>
@@ -154,7 +154,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script type="text/javascript" src="../../../../out/scr/tasks/task_4/src/index.js"></script>
+<script type="module" src="../../../../out/scr/tasks/task_4/src/index.js"></script>
 
 </body>
 

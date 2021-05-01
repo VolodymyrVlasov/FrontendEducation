@@ -192,7 +192,7 @@ body, button, ul {
   display: flex;
   flex-direction: row;
 }
-.searchbar-btn-filter {
+.searchbar-btn-sort {
   width: 40px;
   height: 40px;
   background-color: #0E49B5;
@@ -206,7 +206,7 @@ body, button, ul {
   padding: 8px;
   margin-left: 15px;
 }
-.searchbar-btn-filter:hover {
+.searchbar-btn-sort:hover {
   background-color: #2563d7;
   cursor: pointer;
 }
@@ -238,6 +238,9 @@ body, button, ul {
   margin-top: 20px;
   position: absolute;
   right: 0;
+}
+.popup-hidden {
+  display: none;
 }
 .popup-title {
   font-family: "Poppins", sans-serif;

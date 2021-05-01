@@ -1,5 +1,5 @@
-export enum SortType{
-    DEFAULT,
-    ASCENDING,
-    DEXCENDING
+export enum SortType {
+    DEFAULT = "Default",
+    ASCENDING = "Ascending",
+    DESCENDING = "Descending"
 }
