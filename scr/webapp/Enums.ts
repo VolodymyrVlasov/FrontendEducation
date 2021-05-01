@@ -2,7 +2,8 @@ export enum TaskType {
     BLOCKCHAIN,
     ARRAY_MOVER,
     UNSPLASH,
-    ESTORE
+    ESTORE,
+    PEXELS
 }
 
 export enum Lang {

@@ -26,7 +26,7 @@ export class PictureContainer {
                 if (response.status == 200) {
                     this.renderUpsplashCard(response, htmlPart, githubLink);
                 } else {
-                    throw new Error("Unsucsessful status code");
+                    throw new Error("Unsuccessful status code");
                 }
             })
             .catch((error) => {
