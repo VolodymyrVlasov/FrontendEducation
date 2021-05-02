@@ -11,6 +11,6 @@ export class TestEStore extends AbstractTask {
     githubLink: string = 'https://github.com/VolodymyrVlasov/FrontendEducation/tree/main/scr/tasks/task_4'
 
     renderContainer(htmlPart: boolean): void {
-        window.open("./scr/tasks/task_4/public/index.html", '_blank')
+        window.open("./scr/tasks/task_4/macoutlet.html", '_blank')
     }
 }

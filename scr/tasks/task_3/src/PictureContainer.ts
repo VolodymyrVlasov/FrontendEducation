@@ -1,11 +1,13 @@
-import {UnspashAPI, HttpResponse, UnsplashRandomPhotoResponse} from "./UnspashAPI.js";
+import {HttpResponse, UnspashAPI, UnsplashRandomPhotoResponse} from "./UnspashAPI.js";
 
 const accessKey = 'G-dDBYYwpuIuTK2yXSjJziVMwsk3M0Lrwom3TCsBkGM'
 
 export class PictureContainer {
     private static unsplashApi = new UnspashAPI();
-    
-    static renderContainer(htmlPart: boolean, githubLink: string) {
+    private static contentCnt: string | undefined
+
+    static renderContainer(htmlPart: boolean, githubLink: string, contentCnt: string | undefined) {
+        this.contentCnt = contentCnt
         let request: Request = new Request(
             "https://api.unsplash.com/photos?per_page=28&order_by=popular",
             {
@@ -19,7 +21,7 @@ export class PictureContainer {
         )
 
         console.log(request);
-        
+
         this.unsplashApi.getImageAPIData<UnsplashRandomPhotoResponse>(request)
             .then((response: HttpResponse<UnsplashRandomPhotoResponse>) => {
 
@@ -42,14 +44,14 @@ export class PictureContainer {
         if (responseJson.jsonBody != undefined) {
             console.log(responseJson.jsonBody)
             if (htmlPart) {
-                let rootCnt = document?.getElementById('root_cnt')
+                let rootCnt = document?.getElementById(`${this.contentCnt != undefined ? this.contentCnt : 'root_cnt'}`)
                 // @ts-ignore
                 let gitLink: HTMLLinkElement | null = document.getElementById('git')
-                
+
                 if (gitLink != null) {
                     gitLink.href = githubLink
                 }
-        
+
                 if (rootCnt != null) {
                     rootCnt.innerHTML = ''
                     rootCnt.className = 'u_root'

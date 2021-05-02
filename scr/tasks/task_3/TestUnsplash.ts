@@ -10,12 +10,7 @@ export class TestUnsplash extends AbstractTask {
     htmlPart: boolean = true
     githubLink: string = 'https://github.com/VolodymyrVlasov/FrontendEducation/tree/main/scr/tasks/task_3'
 
-    renderContainer(htmlPart: boolean): void {
-        console.log('Testing Unsplash API')
-        TestUnsplash.run(this.htmlPart, this.githubLink)
-    }
-
-    static run = (htmlPart: boolean, githubLink: string) => {
-        PictureContainer.renderContainer(htmlPart, githubLink)
+    renderContainer(htmlPart: boolean, contentCnt: string | undefined): void {
+        PictureContainer.renderContainer(this.htmlPart, this.githubLink, contentCnt)
     }
 }

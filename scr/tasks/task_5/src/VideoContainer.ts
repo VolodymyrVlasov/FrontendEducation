@@ -4,9 +4,10 @@ import {ApiConfig} from "./api/ApiConfig.js";
 
 export class VideoContainer {
     private pexelsApi = new Api();
+    private contentCnt: string | undefined
 
-    public run(htmlPart: boolean, githubLink: string): void {
-
+    public run(htmlPart: boolean, githubLink: string, contentCnt: string | undefined): void {
+        this.contentCnt = contentCnt
         let request: Request = new Request(
             ApiConfig.apiURL,
             {
@@ -39,7 +40,7 @@ export class VideoContainer {
 
         if (responseJson.jsonBody != undefined) {
             if (htmlPart) {
-                let rootCnt = document?.getElementById('root_cnt')
+                let rootCnt = document?.getElementById(`${this.contentCnt != undefined ? this.contentCnt : 'root_cnt'}`)
                 // @ts-ignore
                 let gitLink: HTMLLinkElement | null = document?.getElementById('git')
 
@@ -56,8 +57,7 @@ export class VideoContainer {
                             rootCnt.innerHTML += `
                                 <div class="pexels_video_card">
                                     <video class="pexels_video" src="${video.video_files[0].link}" controls="true"/>                                                    
-                                </div>
-                            `
+                                </div>`
                         }
                     })
                 }
@@ -69,9 +69,11 @@ export class VideoContainer {
         Array.from(videos).forEach((video: Element) => {
             video.addEventListener("mouseover", () => {
                 console.log(video)
+                // @ts-ignore
                 video.play() // todo cast to HTMLVideoElement
             })
             video.addEventListener("mouseout", () => {
+                // @ts-ignore
                 video.pause() // todo cast to HTMLVideoElement
             })
         })

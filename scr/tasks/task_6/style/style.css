@@ -1,0 +1,29 @@
+.button_switch {
+    padding: 15px 35px;
+    color: white;
+    font-size: 18px;
+    transition: all .15s;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.button_switch:hover {
+    color: orangered;
+}
+
+.button_selected {
+    box-sizing: border-box;
+
+    padding: 15px 35px;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: orangered;
+    font-size: 18px;
+    transition: all .25s;
+    border-bottom: 3px solid orangered;
+}
