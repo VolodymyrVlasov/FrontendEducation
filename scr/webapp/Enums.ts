@@ -3,7 +3,8 @@ export enum TaskType {
     ARRAY_MOVER,
     UNSPLASH,
     ESTORE,
-    PEXELS
+    PEXELS,
+    SWITCHER
 }
 
 export enum Lang {

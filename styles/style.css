@@ -43,7 +43,8 @@ body {
 }
 
 .section {
-    width: 1400px;
+    max-width: 1400px;
+    height: auto;
     margin: 0 auto;
 }
 
@@ -52,6 +53,22 @@ body {
     line-height: 80px;
     justify-content: space-between;
     border-bottom: 1px solid gray;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.lang_btn {
+    padding: 15px 35px;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.2s;
+}
+
+.lang_btn:hover {
+    transform: scale(1.2);
 }
 
 .link {
@@ -74,6 +91,11 @@ body {
 }
 
 .root {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -83,8 +105,8 @@ body {
     min-width: 270px !important;;
     border: 1px solid white;
     border-radius: 10px;
-    margin-right: 20px;
     padding: 15px;
+    margin: 20px 20px;
 }
 
 .ts_logo {
@@ -116,10 +138,6 @@ body {
     width: 100%;
     height: 54px;
     overflow-y: hidden;
-}
-
-.task_info {
-    /*padding: 15px;*/
 }
 
 .button {
