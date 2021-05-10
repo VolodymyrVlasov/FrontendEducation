@@ -6,6 +6,7 @@ import {TestUnsplash} from "./tasks/task_3/TestUnsplash.js";
 import {TestEStore} from "./tasks/task_4/TestEStore.js";
 import {TestPexels} from "./tasks/task_5/TestPexels.js";
 import {TestSwitcher} from "./tasks/task_6/TestSwitcher.js";
+import {TestCustomDOM} from "./tasks/task_7/TestCustomDOM.js";
 
 let tsCnt: HTMLElement | null = document.getElementById('ts_root')
 let jsCnt: HTMLElement | null = document.getElementById('js_root')
@@ -17,6 +18,7 @@ new TestUnsplash(TaskType.UNSPLASH)
 new TestEStore(TaskType.ESTORE)
 new TestPexels(TaskType.PEXELS)
 new TestSwitcher(TaskType.SWITCHER)
+new TestCustomDOM(TaskType.CUSTOM_DOM)
 
 class TaskManager {
     static renderCards() {

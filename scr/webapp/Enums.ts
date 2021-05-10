@@ -4,7 +4,8 @@ export enum TaskType {
     UNSPLASH,
     ESTORE,
     PEXELS,
-    SWITCHER
+    SWITCHER,
+    CUSTOM_DOM
 }
 
 export enum Lang {

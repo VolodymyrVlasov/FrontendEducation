@@ -1,0 +1,71 @@
+$theme_orange: #FF7A00;
+$theme_gray: #929292;
+$theme_dark_gray: #6A6A6A;
+$theme_light_gray: #DBDBDB;
+
+.cnt {
+  margin-left: 50px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: auto;
+  //border: 1px solid gray;
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: -50px;
+  //left: 225px;
+  margin-bottom: 2px;
+  padding: 10px 15px;
+  border-radius: 5px 5px 15px 15px;
+  background-color: $theme_gray;
+  font-family: 'Roboto', serif;
+  font-weight: bolder;
+  color: #fff;
+  font-size: 18px;
+}
+
+.input {
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  margin: 0;
+  border-radius: 7px;
+  background: linear-gradient(90deg, $theme_orange 50%, $theme_light_gray 50%);
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    background: $theme_dark_gray;
+  }
+
+  &::-moz-range-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    background: $theme_dark_gray;
+  }
+
+  &::before {
+    content: 'Width';
+    position: absolute;
+    bottom: -30px;
+    color: $theme_gray;
+  }
+}
