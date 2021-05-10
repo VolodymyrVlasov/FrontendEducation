@@ -1,21 +1,37 @@
 @import "../../theme/_theme-dir";
 
 .banner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    &-title {
-      position: absolute;
-      text-align: center;
-  
-      h1 {
-        @include typo-h1;
-      }
-    }
-  
-    img {
-      width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-title {
+    position: absolute;
+    text-align: center;
+
+    h1 {
+      @include typo-h1;
     }
   }
+
+  img {
+    width: 100%;
+  }
+}
+
+.product_cnt {
+  margin-top: 50px !important;
+  @include grid_cnt(3);
+
+
+  &_filter {
+
+  }
+
+  &_items {
+    @include grid_cnt(2)
+  }
+
+
+}

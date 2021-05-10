@@ -1,4 +1,7 @@
 import {SortType} from "../types/SortType.js";
+import {ApiConfig} from "../api/ApiConfig.js"
+import {ProductItem} from "../models/ProductItem.js";
+import {FilterComponent} from "../components/FilterComponent.js";
 
 export class HomeContainer {
     // todo: add variables for DOM
@@ -6,28 +9,30 @@ export class HomeContainer {
 
     searchInput: HTMLInputElement
     sortButton: HTMLButtonElement
-    settingsButton: HTMLButtonElement
+    filterButton: HTMLButtonElement
 
     sortPopupState: boolean = false
     sortPopupMenu: HTMLDivElement
 
-    settingsPopupState: boolean = false
-    // settingsPopupMenu: HTMLDivElement
-
     sortingTypeInput: HTMLUListElement
     sortTypeState: SortType = SortType.DEFAULT
 
+    private filterComponent: FilterComponent
+
     constructor() {
         // todo: init variables for DOM
-        this.rootContainer = <HTMLDivElement>document.getElementById("root_cnt")
+
+
+        this.rootContainer = <HTMLDivElement>document.getElementById("product_items_cnt")
+
         this.searchInput = <HTMLInputElement>document.getElementById("searchbar_input")
         this.sortButton = <HTMLButtonElement>document.getElementById("search_sort_btn")
-        this.settingsButton = <HTMLButtonElement>document.getElementById("search_settings_btn")
+        this.filterButton = <HTMLButtonElement>document.getElementById("search_settings_btn")
         this.sortPopupMenu = <HTMLDivElement>document.getElementById("sort_popup_menu")
         this.sortingTypeInput = <HTMLUListElement>document.getElementById("sorting_type")
 
         this.sortButton.addEventListener("click", () => this.showSortPopup())
-        this.settingsButton.addEventListener("click", () => this.showSettingsPopup())
+        // this.settingsButton.addEventListener("click", () => this.showSettingsPopup())
 
         this.sortingTypeInput.childNodes.forEach((ul) => {
             ul.childNodes.forEach((li) => {
@@ -36,14 +41,49 @@ export class HomeContainer {
                 })
             })
         })
+        this.filterComponent = new FilterComponent(this.rootContainer.id, this.filterButton.id)
+        this.init()
     }
 
     public init(): void {
         // todo: hook for first load page
+        $(".slider").slick({
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 1000,
+            dots: true,
+            arrows: true,
+        })
+
+        fetch(ApiConfig.URL)
+            .then((response): Promise<ProductItem[]> => {
+                if (!response.ok) {
+                    throw new Error("Failed to access json data file")
+                }
+                return response.json()
+            })
+            .then((data: ProductItem[]) => {
+                if (this.rootContainer) {
+                    this.render(data)
+                } else {
+                    throw new Error("cant find root container for content")
+                }
+            })
+            .catch((error) => console.log(`client error: ${error}`))
     }
 
-    public render(): void {
+    public render(productItems: ProductItem[]): void {
         // todo: render page content
+        productItems.forEach((productItem) => {
+            let productItemCard = document.createElement('div')
+            productItemCard.innerHTML = productItem.name
+            productItemCard.className = 'product_card'
+            this.rootContainer.appendChild(productItemCard)
+        })
+
+        let itemCount: string = <string>String(document.getElementsByClassName("product_card").length)
+        let root = document.documentElement;
+        root.style.setProperty("--grid-item-rows", itemCount);
     }
 
     private sortContent(sortingType: SortType): void {
@@ -57,24 +97,11 @@ export class HomeContainer {
         if (!this.sortPopupState) {
             this.sortPopupMenu.className = "popup"
             this.sortPopupState = true
-            // this.settingsPopupMenu.className = "popup-hidden"
-            this.settingsPopupState = false
         } else {
             this.sortPopupMenu.className = "popup-hidden"
             this.sortPopupState = false
         }
     }
 
-    private showSettingsPopup() {
-        // todo: show settings popup menu
-        if (!this.settingsPopupState) {
-            // this.settingsPopupMenu.className = "popup"
-            this.settingsPopupState = true
-            this.sortPopupMenu.className = "popup-hidden"
-            this.sortPopupState = false
-        } else {
-            // this.settingsPopupMenu.className = "popup-hidden"
-            // this.settingsPopupMenu = false
-        }
-    }
+
 }

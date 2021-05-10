@@ -6,5 +6,7 @@ export enum Color {
     BLUE = "Blue",
     GREY = "Grey",
     GOLD = "Gold",
-    YELLOW = "Yellow"
+    YELLOW = "Yellow",
+    SILVER = "Silver",
+    SPACE_GRAY = "Space gray"
 }

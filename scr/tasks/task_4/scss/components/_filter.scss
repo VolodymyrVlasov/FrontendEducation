@@ -1,0 +1,53 @@
+@import "../theme/_theme-dir";
+
+$border: 1px solid $gray;
+$chevron-size: 20px;
+
+
+.filter_card {
+  border: $border;
+  border-radius: 8px;
+
+  &_header {
+    padding: 20px;
+    border-bottom: $border;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &_title {
+      @include typo;
+    }
+
+    &_btn {
+      width: $chevron-size;
+      height: $chevron-size;
+      background: url("../../assets/icons/chevron-down.svg");
+      background-size: $chevron-size;
+    }
+  }
+
+  &_content {
+    padding: 20px;
+
+  }
+}
+
+.filter_input_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  &_title {
+    @include typo;
+
+  }
+
+  &_inut {
+    @include typo;
+    border: $border;
+    padding: 5px 10px;
+    border-radius: 8px;
+  }
+}

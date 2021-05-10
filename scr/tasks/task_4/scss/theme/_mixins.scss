@@ -26,3 +26,10 @@
   box-shadow: 0 0 3px 3px $gray;
   margin-top: $margin-top;
 }
+
+@mixin grid_cnt($column_number) {
+  display: grid;
+  grid-template-columns: repeat($column_number, 1fr);
+  grid-template-rows:  auto;
+  grid-gap: 30px
+}

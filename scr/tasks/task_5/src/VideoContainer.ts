@@ -66,7 +66,8 @@ export class VideoContainer {
 
         let videos: HTMLCollectionOf<Element> = document.getElementsByClassName("pexels_video")
 
-        Array.from(videos).forEach((video: Element) => {
+        Array.from(videos).forEach((element) => {
+            let video = <HTMLVideoElement>element;
             video.addEventListener("mouseover", () => {
                 console.log(video)
                 // @ts-ignore
@@ -77,6 +78,5 @@ export class VideoContainer {
                 video.pause() // todo cast to HTMLVideoElement
             })
         })
-
     }
 }

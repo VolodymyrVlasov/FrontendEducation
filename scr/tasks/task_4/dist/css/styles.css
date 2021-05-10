@@ -40,6 +40,48 @@ body, button, ul {
   width: 100%;
 }
 
+.product_cnt {
+  margin-top: 50px !important;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 30px;
+}
+.product_cnt_items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 30px;
+}
+
+:root {
+  --grid-item-rows: 3;
+}
+
+.product_cnt {
+  display: grid;
+  margin: auto;
+  grid-gap: 40px;
+  grid-template-rows: repeat(var(--grid-item-rows), 1fr);
+  grid-template-columns: repeat(3, 1fr);
+}
+.product_cnt_filter_cnt {
+  grid-column: 1;
+  grid-row-start: 1;
+  grid-row-end: last-line !important;
+  border: 1px solid red;
+}
+
+.product_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 480px;
+  border: 1px solid gray;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -238,6 +280,8 @@ body, button, ul {
   margin-top: 20px;
   position: absolute;
   right: 0;
+  background-color: #fff;
+  z-index: 999;
 }
 .popup-hidden {
   display: none;
@@ -267,6 +311,77 @@ body, button, ul {
 .popup-items-item div:hover {
   background-color: #E0E0E0;
   border-radius: 15px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, button, ul {
+  margin: 0;
+  padding: 0;
+}
+
+.width-cnt {
+  width: 1025px;
+  margin: 0 auto;
+  position: relative;
+}
+@media only screen and (max-width: 640px) {
+  .width-cnt {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+.filter_card {
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+}
+.filter_card_header {
+  padding: 20px;
+  border-bottom: 1px solid #E0E0E0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.filter_card_header_title {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  color: black;
+}
+.filter_card_header_btn {
+  width: 20px;
+  height: 20px;
+  background: url("../../assets/icons/chevron-down.svg");
+  background-size: 20px;
+}
+.filter_card_content {
+  padding: 20px;
+}
+
+.filter_input_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.filter_input_item_title {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  color: black;
+}
+.filter_input_item_inut {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  color: black;
+  border: 1px solid #E0E0E0;
+  padding: 5px 10px;
+  border-radius: 8px;
 }
 
 /*# sourceMappingURL=styles.css.map */

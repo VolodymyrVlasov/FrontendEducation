@@ -1,5 +1,5 @@
 export interface Dimention{
-    heignt: number
+    height: number
     width: number
     depth: number
     weight: number

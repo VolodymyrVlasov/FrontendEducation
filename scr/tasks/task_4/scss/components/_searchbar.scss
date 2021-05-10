@@ -63,11 +63,11 @@ $popup-margin: 20px;
     @include flex();
 
     &-sort {
-      @include button("../../public/assets/icons/filter-icon.svg");
+      @include button("../../assets/icons/filter-icon.svg");
     }
 
     &-settings {
-      @include button("../../public/assets/icons/settings.svg");
+      @include button("../../assets/icons/settings.svg");
     }
   }
 }
@@ -76,6 +76,8 @@ $popup-margin: 20px;
   @include card($margin-top: 20px);
   position: absolute;
   right: 0;
+  background-color: #fff;
+  z-index: 999;
 
   &-hidden{
     display: none;
