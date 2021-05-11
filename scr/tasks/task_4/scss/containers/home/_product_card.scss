@@ -1,9 +1,63 @@
-.product_card{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.product_card {
+  margin: 50px auto;
+  display: grid;
+  justify-items: center;
   align-items: center;
-  width: 100%;
+  width: 300px;
   height: 480px;
-  border: 1px solid gray;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  border: 1px solid #E0E0E0;
+  grid-template: "product_card_body"
+                 "product_card_footer";
+
+  &_body {
+    display: flex;
+    flex-direction: column;
+    &__favorite_ico {
+
+    }
+
+    &_photo {
+      display: block;
+      width: 200px;
+      height: 200px;
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    &_title {
+
+
+    }
+
+    &_stock {
+
+    }
+
+    &_price {
+
+    }
+
+    &__btn {
+
+    }
+  }
+
+  &_footer {
+    &_ico {
+
+    }
+
+    &_rate {
+
+    }
+
+    &_orders {
+
+    }
+  }
 }
