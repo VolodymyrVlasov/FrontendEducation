@@ -8,6 +8,19 @@
   color:$color;
 }
 
+@mixin button_active ($font_size: 18px, $text_color: #fff) {
+  @include typo($font_size, normal, $text_color);
+  background-color: $blue;
+  border-radius: 12px;
+  padding: 15px 40px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #2563d7;
+  }
+}
+
 
 @mixin typo-h1 {
   @include typo(60px, bold, #fff);

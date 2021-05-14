@@ -19,19 +19,3 @@
     width: 100%;
   }
 }
-
-.product_cnt {
-  margin-top: 50px !important;
-  @include grid_cnt(3);
-
-
-  &_filter {
-
-  }
-
-  &_items {
-    @include grid_cnt(2)
-  }
-
-
-}

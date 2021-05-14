@@ -3,17 +3,17 @@
 }
 
 .product_cnt{
+
   display: grid;
   margin: auto;
   grid-gap: 40px;
   grid-template-rows: repeat(var(--grid-item-rows), 1fr);
   grid-template-columns: repeat(3, 1fr);
+  margin-top: 25px !important;
 
   &_filter_cnt {
     grid-column: 1;
     grid-row-start: 1;
-    //height: 100%;
-    grid-row-end: last-line !important;
-    border: 1px solid red;
+    grid-row-end: last-line;
   }
 }

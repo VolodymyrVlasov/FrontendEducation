@@ -2,6 +2,7 @@ import {SortType} from "../types/SortType.js";
 import {ApiConfig} from "../api/ApiConfig.js"
 import {ProductItem} from "../models/ProductItem.js";
 import {FilterComponent} from "../components/FilterComponent.js";
+import {ProductCard} from "../components/ProductCard.js";
 
 export class HomeContainer {
     // todo: add variables for DOM
@@ -47,6 +48,7 @@ export class HomeContainer {
 
     public init(): void {
         // todo: hook for first load page
+        // @ts-ignore
         $(".slider").slick({
             infinite: true,
             autoplay: true,
@@ -75,15 +77,12 @@ export class HomeContainer {
     public render(productItems: ProductItem[]): void {
         // todo: render page content
         productItems.forEach((productItem) => {
-            let productItemCard = document.createElement('div')
-            productItemCard.innerHTML = productItem.name
-            productItemCard.className = 'product_card'
-            this.rootContainer.appendChild(productItemCard)
+            this.rootContainer.appendChild(ProductCard.createCard(productItem))
         })
 
         let itemCount: string = <string>String(document.getElementsByClassName("product_card").length)
         let root = document.documentElement;
-        root.style.setProperty("--grid-item-rows", itemCount);
+        root.style.setProperty("--grid-item-rows", String(+itemCount / 2));
     }
 
     private sortContent(sortingType: SortType): void {

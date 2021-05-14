@@ -81,6 +81,7 @@ $popup-margin: 20px;
 
   &-hidden{
     display: none;
+    transition:4s;
   }
 
   &-title {
