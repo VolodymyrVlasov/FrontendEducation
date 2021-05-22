@@ -1,3 +1,5 @@
+import {Color} from "../types/Color.js";
+
 export class FilterComponent {
     rootCnt: HTMLDivElement
     filterBtn: HTMLButtonElement
@@ -9,10 +11,13 @@ export class FilterComponent {
         this.filterBtn.addEventListener('click', () => this.showFilter())
     }
 
-    private showFilter(): void {
-        if (this.isFilterVisible == false) {
-            let filterCnt = <HTMLDivElement>document.createElement('div')
-            filterCnt.innerHTML = `
+    private filterItemOnChange() {
+
+    }
+
+    private renderPriceFilter(): HTMLDivElement {
+        let filterCnt = <HTMLDivElement>document.createElement('div')
+        filterCnt.innerHTML = `
                              <div class="product_cnt_filter">
                         <div class="filter_card">
 
@@ -34,9 +39,41 @@ export class FilterComponent {
 
                         </div>
                     </div>
-            
             `
-            this.rootCnt.insertAdjacentElement('afterbegin', filterCnt)
+        return filterCnt
+    }
+
+    private renderItemCheckbox(obj: Object, id: string): HTMLDivElement {
+        let innerItems: HTMLLIElement[] = Object.keys(obj).map((value, index) => {
+            let temp = <HTMLLIElement>document.createElement('li')
+            temp.innerHTML =
+                ` <div>
+                     <input type="checkbox" id="${value}">
+                     <label for="${value}">${obj[value as keyof typeof obj]}</label>
+                 </div>`
+            return temp
+        })
+
+        let temp: HTMLDivElement = document.createElement('div')
+        temp.id = id
+
+        innerItems.forEach((value)=>{
+            temp.appendChild(value)
+        })
+
+        return temp
+    }
+
+
+    private showFilter(): void {
+        if (!this.isFilterVisible) {
+            let filtersCnt = <HTMLDivElement>document.createElement('div')
+            filtersCnt.append(this.renderPriceFilter())
+            filtersCnt.append(this.renderItemCheckbox(Color, "f"))
+            filtersCnt.addEventListener('input', (event)=> {
+                this.filter(event)
+            })
+            this.rootCnt.insertAdjacentElement('afterbegin', filtersCnt)
             if (this.rootCnt.firstElementChild) {
                 this.rootCnt.firstElementChild.className = "product_cnt_filter_cnt";
             }
@@ -47,5 +84,10 @@ export class FilterComponent {
             }
             this.isFilterVisible = false
         }
+    }
+
+    private filter(event: Event) {
+        // @ts-ignore
+        console.log(event.target.value)
     }
 }
