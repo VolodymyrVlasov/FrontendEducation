@@ -1,14 +1,25 @@
-import {Color} from "../types/Color.js";
+import {Color, Os, Memory} from "../types/index.js";
+import {FilterItem, IFilterItem} from "./FilterItem.js";
 
 export class FilterComponent {
     rootCnt: HTMLDivElement
     filterBtn: HTMLButtonElement
     isFilterVisible: boolean = false
+    private filterData: Map<Object, IFilterItem>
 
     constructor(rootCntId: string, filterBtnId: string) {
+        this.filterData = new Map()
+        this.addFilterData(Color, 'Color')
+        this.addFilterData(Os, 'Os')
+        this.addFilterData(Memory, 'Memory')
+
         this.rootCnt = <HTMLDivElement>document.getElementById(rootCntId)
         this.filterBtn = <HTMLButtonElement>document.getElementById(filterBtnId)
         this.filterBtn.addEventListener('click', () => this.showFilter())
+    }
+
+    private addFilterData(o: Object, title: string) {
+        this.filterData.set(o, new FilterItem(o, title))
     }
 
     private filterItemOnChange() {
@@ -43,34 +54,16 @@ export class FilterComponent {
         return filterCnt
     }
 
-    private renderItemCheckbox(obj: Object, id: string): HTMLDivElement {
-        let innerItems: HTMLLIElement[] = Object.keys(obj).map((value, index) => {
-            let temp = <HTMLLIElement>document.createElement('li')
-            temp.innerHTML =
-                ` <div>
-                     <input type="checkbox" id="${value}">
-                     <label for="${value}">${obj[value as keyof typeof obj]}</label>
-                 </div>`
-            return temp
-        })
-
-        let temp: HTMLDivElement = document.createElement('div')
-        temp.id = id
-
-        innerItems.forEach((value)=>{
-            temp.appendChild(value)
-        })
-
-        return temp
-    }
-
-
     private showFilter(): void {
         if (!this.isFilterVisible) {
             let filtersCnt = <HTMLDivElement>document.createElement('div')
             filtersCnt.append(this.renderPriceFilter())
-            filtersCnt.append(this.renderItemCheckbox(Color, "f"))
-            filtersCnt.addEventListener('input', (event)=> {
+
+            this.filterData.forEach((e) => {
+                filtersCnt.append(e.render())
+            })
+
+            filtersCnt.addEventListener('input', (event) => {
                 this.filter(event)
             })
             this.rootCnt.insertAdjacentElement('afterbegin', filtersCnt)
@@ -87,7 +80,8 @@ export class FilterComponent {
     }
 
     private filter(event: Event) {
-        // @ts-ignore
-        console.log(event.target.value)
+        if (event.target instanceof HTMLInputElement && event.target.type == 'checkbox')
+            console.log(event.target.checked)
+
     }
 }

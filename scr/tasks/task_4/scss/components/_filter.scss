@@ -7,6 +7,7 @@ $chevron-size: 20px;
 .filter_card {
   border: $border;
   border-radius: 8px;
+  margin-bottom: 15px !important;
 
   &_header {
     padding: 20px;
@@ -38,6 +39,8 @@ $chevron-size: 20px;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
+  width: 50%;
+  flex-wrap: wrap;
 
   &_title {
     @include typo;
@@ -49,5 +52,6 @@ $chevron-size: 20px;
     border: $border;
     padding: 5px 10px;
     border-radius: 8px;
+    list-style: none;
   }
 }

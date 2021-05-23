@@ -22,8 +22,6 @@ export class HomeContainer {
 
     constructor() {
         // todo: init variables for DOM
-
-
         this.rootContainer = <HTMLDivElement>document.getElementById("product_items_cnt")
 
         this.searchInput = <HTMLInputElement>document.getElementById("searchbar_input")

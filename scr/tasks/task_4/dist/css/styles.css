@@ -500,6 +500,7 @@ body, button, ul {
 .filter_card {
   border: 1px solid #E0E0E0;
   border-radius: 8px;
+  margin-bottom: 15px !important;
 }
 .filter_card_header {
   padding: 20px;
@@ -529,6 +530,8 @@ body, button, ul {
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
+  width: 50%;
+  flex-wrap: wrap;
 }
 .filter_input_item_title {
   font-family: "Poppins", sans-serif;
@@ -544,6 +547,7 @@ body, button, ul {
   border: 1px solid #E0E0E0;
   padding: 5px 10px;
   border-radius: 8px;
+  list-style: none;
 }
 
 /*# sourceMappingURL=styles.css.map */
