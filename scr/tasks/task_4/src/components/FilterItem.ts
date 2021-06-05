@@ -5,13 +5,11 @@ export interface IFilterItem {
 export class FilterItem implements IFilterItem {
     private readonly obj: Object | null
     private readonly filterTitle: string
-    private filterValues: Array<any>
-    private headerFilter: HTMLDivElement
+    private readonly headerFilter: HTMLDivElement
 
     constructor(object: Object | null, filterTitle: string) {
         this.obj = object
         this.filterTitle = filterTitle
-        this.filterValues = new Array<any>()
         this.headerFilter = document.createElement('div')
     }
 
@@ -19,7 +17,6 @@ export class FilterItem implements IFilterItem {
         let filterCard = <HTMLElement>document.createElement('div')
         filterCard.className = 'filter_card'
         filterCard.append(this.addHeader())
-
         let filterContent = document.createElement('div')
         filterContent.className = 'filter_card_content'
         filterContent.id = 'filer_card_1'
@@ -33,11 +30,8 @@ export class FilterItem implements IFilterItem {
                     <input class="filter_input_item_input" id="price_to" type="text" placeholder="1350">
                 </div>
             `
-
         filterCard.getElementsByClassName('filter_card_header_btn')[0]
-            .addEventListener('click', (e) => {
-                this.collapseFilter(filterContent.id)
-            })
+            .addEventListener('click', (e) => this.collapseFilter(filterContent.id))
         filterCard.append(filterContent)
         return filterCard
     }
@@ -49,7 +43,6 @@ export class FilterItem implements IFilterItem {
         let rawHTML: HTMLDivElement = document.createElement('div')
         rawHTML.className = 'filter_card'
         rawHTML.append(this.addHeader())
-
         let innerItems: HTMLLIElement[] = Object.keys(o).map((value) => {
             let rawLi = <HTMLLIElement>document.createElement('li')
             rawLi.innerHTML = ` <div>
@@ -64,9 +57,7 @@ export class FilterItem implements IFilterItem {
         innerItems.forEach((value: HTMLLIElement) => filterContent.appendChild(value))
         rawHTML.append(filterContent)
         rawHTML.getElementsByClassName('filter_card_header_btn')[0]
-            .addEventListener('click', (e) => {
-                this.collapseFilter(filterContent.id)
-            })
+            .addEventListener('click', (e) => this.collapseFilter(filterContent.id))
         return rawHTML
     }
 

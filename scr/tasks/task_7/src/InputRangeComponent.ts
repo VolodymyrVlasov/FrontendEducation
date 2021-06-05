@@ -14,13 +14,14 @@ export class InputRangeComponent {
             let to = Number(this.input.max)
             let labelCenterX = this.label.offsetWidth / 2
             let inputWidth = this.input.offsetWidth
+            let gradientPosition = this.map(value, from, to, 0, 100)
+            this.input.style.background = `linear-gradient(90deg, #FF7A00 ${gradientPosition}%, #DBDBDB ${gradientPosition}%)`
 
             let labelPosition = this.map(value, from, to, 0, inputWidth)
-
             labelPosition = (value >= to / 2) ?
-                (labelPosition) - Math.abs(this.map(value, to / 2, to, labelCenterX, labelCenterX + thumbHalfSize))
+                labelPosition - Math.abs(this.map(value, to / 2, to, labelCenterX, labelCenterX + thumbHalfSize))
                 :
-                (labelPosition) - Math.abs(this.map(value, from, to / 2, labelCenterX - thumbHalfSize, labelCenterX))
+                labelPosition - Math.abs(this.map(value, from, to / 2, labelCenterX - thumbHalfSize, labelCenterX))
 
             this.label.style.left = `${labelPosition}px`
         })

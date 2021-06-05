@@ -9,7 +9,7 @@ export interface ProductItem {
     storage: number
     ram: number
     price: number
-    color: Color
+    color: Color[]
     display: number
     imgUrl: string
     orders: number
