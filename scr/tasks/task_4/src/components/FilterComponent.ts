@@ -108,17 +108,22 @@ export class FilterComponent {
         let filteredData: Array<ProductItem> = new Array<ProductItem>()
         if (dataToFilter) {
             filteredData = dataToFilter.filter((product) => {
-                let isColor = product.color.some((color: string) => this.isChecked(this.filterValues.get('color'), color))
-                let isStorage = this.isChecked(this.filterValues.get('storage'), String(product.storage))
-                let isOs = this.isChecked(this.filterValues.get('os'), String(product.os))
+                let isColor = product.color.some((color: string) => this.hasFilterData(this.filtegit rValues.get('color'), color))
+                let isStorage = this.hasFilterData(this.filterValues.get('storage'), String(product.storage))
+                let isOs = this.hasFilterData(this.filterValues.get('os'), String(product.os))
                 return isColor && isOs && isStorage
             })
         }
-        console.log(filteredData)
-        this.homeContainer.render(filteredData.length == 0 ? dataToFilter : filteredData)
+
+        if (filteredData.length == 0){
+            this.homeContainer.render(filteredData)
+            alert('No matches')
+        } else {
+            this.homeContainer.render(filteredData)
+        }
     }
 
-    private isChecked(filterTags: Array<any> | undefined, productTag: string): boolean {
+    private hasFilterData(filterTags: Array<any> | undefined, productTag: string): boolean {
         if (filterTags != undefined && filterTags?.length != 0) {
             return filterTags.includes(productTag)
         }
