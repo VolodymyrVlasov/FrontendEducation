@@ -45,7 +45,11 @@ export class HomeContainer {
 
     public render(productItems: ProductItem[]): void {
         if (this.rootContainer.children.length > 1) {
-            let filterCard = <HTMLElement>this.rootContainer.firstChild
+            let cards = <HTMLCollection>document.getElementsByClassName('product_card')
+            while (cards[0]){
+                this.rootContainer.removeChild(cards[0])
+            }
+            let filterCard = <HTMLDivElement>this.rootContainer.firstChild
             if (filterCard.className == 'product_cnt_filter_cnt') {
                 this.rootContainer.innerHTML = ''
                 this.rootContainer.appendChild(filterCard)
@@ -56,9 +60,10 @@ export class HomeContainer {
             this.rootContainer.appendChild(ProductCard.createCard(productItem))
         })
 
-        let itemCount: string = <string>String(document.getElementsByClassName("product_card").length)
+        let itemCount: number = <number>document.getElementsByClassName("product_card").length
         let root = document.documentElement;
-        root.style.setProperty("--grid-item-rows", String(+itemCount / 2));
+        root.style.setProperty("--grid-item-rows", String(Math.ceil(itemCount / 2) + 1));
+
     }
 
     private init(): void {
@@ -94,7 +99,6 @@ export class HomeContainer {
     }
 
     private sortContent(sortingType: SortType): void {
-        // todo: add logic to sort item cards and call render method
         this.sortTypeState = sortingType
     }
 

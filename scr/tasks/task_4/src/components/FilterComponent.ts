@@ -77,17 +77,18 @@ export class FilterComponent {
             } else if (targetGroup.id == 'os') {
                 if (event.target.checked) {
                     this.filterOs.push(Os[target.id as keyof typeof Os])
-                    this.filterValues.set('os', this.filterColors)
+                    this.filterValues.set('os', this.filterOs)
                 } else {
                     this.filterOs.splice(this.filterOs.indexOf(Os[target.id as keyof typeof Os]))
                     this.filterValues.set('os', this.filterOs)
                 }
             } else if (targetGroup.id == 'memory') {
+                let storageValue = target.id.substr(2)
                 if (event.target.checked) {
-                    this.filterMemory.push(Memory[target.id as keyof typeof Memory])
+                    this.filterMemory.push(storageValue)
                     this.filterValues.set('storage', this.filterMemory)
                 } else {
-                    this.filterMemory.splice(this.filterMemory.indexOf(Memory[target.id as keyof typeof Memory]))
+                    this.filterMemory.splice(this.filterMemory.indexOf(storageValue))
                     this.filterValues.set('storage', this.filterMemory)
                 }
             }
@@ -103,24 +104,24 @@ export class FilterComponent {
     }
 
     private filterItem() {
-        console.log(this.homeContainer.productData)
         let dataToFilter: Array<ProductItem> = this.homeContainer.productData
         let filteredData: Array<ProductItem> = new Array<ProductItem>()
         if (dataToFilter) {
-            // this.filterValues.forEach((value, key) => {
-            //     filteredData = dataToFilter.filter((product) => {
-            //         return Array(product[key as keyof typeof product]).some((value1: any) => {
-            //             return value?.includes(value1)
-            //         })
-            //     })
-            // })
             filteredData = dataToFilter.filter((product) => {
-                return product.color.some((color: string) => {
-                        return this.filterValues.get('color')?.includes(color)
-                    }
-                )
+                let isColor = product.color.some((color: string) => this.isChecked(this.filterValues.get('color'), color))
+                let isStorage = this.isChecked(this.filterValues.get('storage'), String(product.storage))
+                let isOs = this.isChecked(this.filterValues.get('os'), String(product.os))
+                return isColor && isOs && isStorage
             })
         }
+        console.log(filteredData)
         this.homeContainer.render(filteredData.length == 0 ? dataToFilter : filteredData)
+    }
+
+    private isChecked(filterTags: Array<any> | undefined, productTag: string): boolean {
+        if (filterTags != undefined && filterTags?.length != 0) {
+            return filterTags.includes(productTag)
+        }
+        return true
     }
 }

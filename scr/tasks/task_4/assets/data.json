@@ -675,7 +675,7 @@
       "depth": "0.6",
       "weight": "1.07"
     },
-    "os": "macOS",
+    "os": "watchOS",
     "InTheBox": [
       "Case",
       "Solo Loop",
