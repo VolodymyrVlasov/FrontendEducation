@@ -108,7 +108,7 @@ export class FilterComponent {
         let filteredData: Array<ProductItem> = new Array<ProductItem>()
         if (dataToFilter) {
             filteredData = dataToFilter.filter((product) => {
-                let isColor = product.color.some((color: string) => this.hasFilterData(this.filtegit rValues.get('color'), color))
+                let isColor = product.color.some((color: string) => this.hasFilterData(this.filterValues.get('color'), color))
                 let isStorage = this.hasFilterData(this.filterValues.get('storage'), String(product.storage))
                 let isOs = this.hasFilterData(this.filterValues.get('os'), String(product.os))
                 return isColor && isOs && isStorage
