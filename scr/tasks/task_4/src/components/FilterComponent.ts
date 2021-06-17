@@ -2,6 +2,7 @@ import {Color, Memory, Os} from "../types/index.js";
 import {FilterItem, IFilterItem} from "./FilterItem.js";
 import {HomeContainer} from "../containers/HomeContainer";
 import {ProductItem} from "../models/ProductItem";
+import Event = JQuery.Event;
 
 export class FilterComponent {
     rootCnt: HTMLDivElement
@@ -15,6 +16,7 @@ export class FilterComponent {
     private readonly filterMemory: Array<string>
     private readonly filterPrice: Array<number>
     private homeContainer: HomeContainer
+    private rangeFlag: boolean = false
 
     constructor(rootCntId: string, filterBtnId: string, homeContainer: HomeContainer) {
         this.homeContainer = homeContainer
@@ -46,14 +48,17 @@ export class FilterComponent {
                 filtersCnt.append(e.render())
             })
 
-            filtersCnt.addEventListener('input', (event) => {
-                this.setFilterParam(event)
-            })
+            filtersCnt.addEventListener('input', (event) => this.setFilterParam(event))
+
+
             this.rootCnt.insertAdjacentElement('afterbegin', filtersCnt)
             if (this.rootCnt.firstElementChild) {
                 this.rootCnt.firstElementChild.className = "product_cnt_filter_cnt";
             }
             this.isFilterVisible = true
+
+            let btn = <HTMLButtonElement>document?.getElementById("price_btn")
+            btn.addEventListener("click", () => this.filterByPrice())
         } else {
             if (this.rootCnt.firstChild) {
                 this.rootCnt.removeChild(this.rootCnt.firstChild)
@@ -62,7 +67,13 @@ export class FilterComponent {
         }
     }
 
-    private setFilterParam(event: Event) {
+    public filterByPrice() {
+        this.rangeFlag = true
+        this.filterItem()
+    }
+
+    private setFilterParam(event: any) {
+        console.log(event)
         if (event.target instanceof HTMLInputElement && event.target.type == 'checkbox') {
             let targetGroup: HTMLElement = <HTMLElement>event.target.parentNode?.parentNode?.parentNode
             let target: HTMLInputElement = <HTMLInputElement>event.target
@@ -104,6 +115,7 @@ export class FilterComponent {
     }
 
     private filterItem() {
+        console.log(this.rangeFlag, this.filterPrice)
         let dataToFilter: Array<ProductItem> = this.homeContainer.productData
         let filteredData: Array<ProductItem> = new Array<ProductItem>()
         if (dataToFilter) {
@@ -111,16 +123,19 @@ export class FilterComponent {
                 let isColor = product.color.some((color: string) => this.hasFilterData(this.filterValues.get('color'), color))
                 let isStorage = this.hasFilterData(this.filterValues.get('storage'), String(product.storage))
                 let isOs = this.hasFilterData(this.filterValues.get('os'), String(product.os))
+                // if (this.rangeFlag) {
+                //     let isPrice = this.hasRangeMatches(product.price)
+                //     this.rangeFlag = false
+                //     return isColor && isOs && isStorage && isPrice
+                // }
                 return isColor && isOs && isStorage
             })
         }
-
-        if (filteredData.length == 0){
-            this.homeContainer.render(filteredData)
-            alert('No matches')
-        } else {
-            this.homeContainer.render(filteredData)
+        console.log(filteredData.length)
+        if (filteredData.length == 0) {
+            console.log('No matches')
         }
+        this.homeContainer.render(filteredData)
     }
 
     private hasFilterData(filterTags: Array<any> | undefined, productTag: string): boolean {
@@ -128,5 +143,17 @@ export class FilterComponent {
             return filterTags.includes(productTag)
         }
         return true
+    }
+
+    private hasRangeMatches(productPrice: number): boolean {
+        if (this.filterPrice[0] && this.filterPrice[1]) {
+            return productPrice > this.filterPrice[0] && productPrice < this.filterPrice[1]
+        } else if (this.filterPrice[0] && !this.filterPrice[1]) {
+            return productPrice > this.filterPrice[0]
+        } else if (!this.filterPrice[0] && this.filterPrice[1]) {
+            return productPrice < this.filterPrice[1]
+        } else {
+            return true
+        }
     }
 }
