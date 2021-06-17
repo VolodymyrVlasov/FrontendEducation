@@ -14,7 +14,7 @@ export class FilterComponent {
     private readonly filterColors: Array<string>
     private readonly filterOs: Array<string>
     private readonly filterMemory: Array<string>
-    private readonly filterPrice: Array<number>
+    private filterPrice: Array<number>
     private homeContainer: HomeContainer
     private rangeFlag: boolean = false
 
@@ -48,7 +48,9 @@ export class FilterComponent {
                 filtersCnt.append(e.render())
             })
 
-            filtersCnt.addEventListener('input', (event) => this.setFilterParam(event))
+            filtersCnt.addEventListener('change', (event) => {
+                this.setFilterParam(event)
+            })
 
 
             this.rootCnt.insertAdjacentElement('afterbegin', filtersCnt)
@@ -57,8 +59,8 @@ export class FilterComponent {
             }
             this.isFilterVisible = true
 
-            let btn = <HTMLButtonElement>document?.getElementById("price_btn")
-            btn.addEventListener("click", () => this.filterByPrice())
+            // let btn = <HTMLButtonElement>document?.getElementById("price_btn")
+            // btn.addEventListener("click", () => this.filterByPrice())
         } else {
             if (this.rootCnt.firstChild) {
                 this.rootCnt.removeChild(this.rootCnt.firstChild)
@@ -69,11 +71,11 @@ export class FilterComponent {
 
     public filterByPrice() {
         this.rangeFlag = true
+        console.log(this.rangeFlag, this.filterPrice)
         this.filterItem()
     }
 
     private setFilterParam(event: any) {
-        console.log(event)
         if (event.target instanceof HTMLInputElement && event.target.type == 'checkbox') {
             let targetGroup: HTMLElement = <HTMLElement>event.target.parentNode?.parentNode?.parentNode
             let target: HTMLInputElement = <HTMLInputElement>event.target
@@ -104,6 +106,7 @@ export class FilterComponent {
                 }
             }
         } else if (event.target instanceof HTMLInputElement && event.target.type == 'text') {
+            // this.filterPrice = []
             if (event.target.id === 'price_from') {
                 this.filterPrice[0] = Number(event.target.value)
             } else if (event.target.id === 'price_to') {
@@ -111,11 +114,12 @@ export class FilterComponent {
             }
             this.filterValues.set('price', this.filterPrice)
         }
+
+        console.log(this.filterValues)
         this.filterItem()
     }
 
     private filterItem() {
-        console.log(this.rangeFlag, this.filterPrice)
         let dataToFilter: Array<ProductItem> = this.homeContainer.productData
         let filteredData: Array<ProductItem> = new Array<ProductItem>()
         if (dataToFilter) {
@@ -147,11 +151,11 @@ export class FilterComponent {
 
     private hasRangeMatches(productPrice: number): boolean {
         if (this.filterPrice[0] && this.filterPrice[1]) {
-            return productPrice > this.filterPrice[0] && productPrice < this.filterPrice[1]
+            return productPrice >= this.filterPrice[0] && productPrice <= this.filterPrice[1]
         } else if (this.filterPrice[0] && !this.filterPrice[1]) {
-            return productPrice > this.filterPrice[0]
+            return productPrice >= this.filterPrice[0]
         } else if (!this.filterPrice[0] && this.filterPrice[1]) {
-            return productPrice < this.filterPrice[1]
+            return productPrice <= this.filterPrice[1]
         } else {
             return true
         }

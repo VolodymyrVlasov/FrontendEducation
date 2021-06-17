@@ -30,7 +30,7 @@ export class FilterItem implements IFilterItem {
                     <label class="filter_input_item_title" for="price_to">To</label>
                     <input class="filter_input_item_input" id="price_to" type="text" placeholder="1350">
                 </div>
-                <div> <button id="price_btn">Ok</button></div>
+                <div><button id="price_btn" style="z-index: 999">Ok</button></div>
             `
         filterCard.getElementsByClassName('filter_card_header_btn')[0]
             .addEventListener('click', (e) => this.collapseFilter(filterContent.id))
