@@ -17,14 +17,3 @@ import {FilterComponent} from "./components/FilterComponent.js"
 new HomeContainer()
 
 
-document.addEventListener('keydown', ()=> {
-    console.log(document.activeElement)
-    }
-)
-
-document.addEventListener('mousedown', ()=> {
-        console.log(document.activeElement)
-    }
-)
-
-

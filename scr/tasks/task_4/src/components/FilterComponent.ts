@@ -42,25 +42,24 @@ export class FilterComponent {
     private showFilter(): void {
         if (!this.isFilterVisible) {
             let filtersCnt = <HTMLDivElement>document.createElement('div')
-            filtersCnt.append(this.filterPriceCard.renderPriceFilter())
+
+            let filterByPriceCard = this.filterPriceCard.renderPriceFilter()
+            filterByPriceCard.addEventListener("input", event => this.filterByPrice(event))
+            filtersCnt.append(filterByPriceCard)
 
             this.filterData.forEach((e) => {
-                filtersCnt.append(e.render())
+                let filterCard = e.render()
+                filterCard.addEventListener('change', event => this.setFilterParam(event))
+                filtersCnt.append(filterCard)
             })
-
-            filtersCnt.addEventListener('change', (event) => {
-                this.setFilterParam(event)
-            })
-
 
             this.rootCnt.insertAdjacentElement('afterbegin', filtersCnt)
             if (this.rootCnt.firstElementChild) {
                 this.rootCnt.firstElementChild.className = "product_cnt_filter_cnt";
             }
             this.isFilterVisible = true
-
-            // let btn = <HTMLButtonElement>document?.getElementById("price_btn")
-            // btn.addEventListener("click", () => this.filterByPrice())
+            let btn = <HTMLButtonElement>document?.getElementById("price_btn")
+            btn.addEventListener("click", () => this.filterByPrice())
         } else {
             if (this.rootCnt.firstChild) {
                 this.rootCnt.removeChild(this.rootCnt.firstChild)
@@ -69,10 +68,20 @@ export class FilterComponent {
         }
     }
 
-    public filterByPrice() {
-        this.rangeFlag = true
-        console.log(this.rangeFlag, this.filterPrice)
-        this.filterItem()
+    public filterByPrice(event?: any) {
+        if (event == undefined) {
+            this.rangeFlag = true
+            this.filterItem()
+        } else {
+            if (event.target instanceof HTMLInputElement && event.target.type == 'text') {
+                if (event.target.id === 'price_from') {
+                    this.filterPrice[0] = Number(event.target.value)
+                } else if (event.target.id === 'price_to') {
+                    this.filterPrice[1] = Number(event.target.value)
+                }
+                this.filterValues.set('price', this.filterPrice)
+            }
+        }
     }
 
     private setFilterParam(event: any) {
@@ -105,17 +114,7 @@ export class FilterComponent {
                     this.filterValues.set('storage', this.filterMemory)
                 }
             }
-        } else if (event.target instanceof HTMLInputElement && event.target.type == 'text') {
-            // this.filterPrice = []
-            if (event.target.id === 'price_from') {
-                this.filterPrice[0] = Number(event.target.value)
-            } else if (event.target.id === 'price_to') {
-                this.filterPrice[1] = Number(event.target.value)
-            }
-            this.filterValues.set('price', this.filterPrice)
         }
-
-        console.log(this.filterValues)
         this.filterItem()
     }
 
@@ -127,15 +126,15 @@ export class FilterComponent {
                 let isColor = product.color.some((color: string) => this.hasFilterData(this.filterValues.get('color'), color))
                 let isStorage = this.hasFilterData(this.filterValues.get('storage'), String(product.storage))
                 let isOs = this.hasFilterData(this.filterValues.get('os'), String(product.os))
-                // if (this.rangeFlag) {
-                //     let isPrice = this.hasRangeMatches(product.price)
-                //     this.rangeFlag = false
-                //     return isColor && isOs && isStorage && isPrice
-                // }
+                if (this.rangeFlag) {
+                    let isPrice = this.hasRangeMatches(product.price)
+                    return isColor && isOs && isStorage && isPrice
+                }
                 return isColor && isOs && isStorage
             })
         }
         console.log(filteredData.length)
+
         if (filteredData.length == 0) {
             console.log('No matches')
         }
