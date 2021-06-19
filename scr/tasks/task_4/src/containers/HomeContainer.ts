@@ -12,9 +12,10 @@ export class HomeContainer {
     private sortPopupState: boolean = false
     private sortPopupMenu: HTMLDivElement
     private sortingTypeInput: HTMLUListElement
-    private sortTypeState: SortType = SortType.DEFAULT
+    private _sortType: SortType = SortType.DEFAULT
     private filterComponent?: FilterComponent
     private _productData?: ProductItem[]
+    private workingProductData?: ProductItem[]
 
     constructor() {
         this.init()
@@ -29,7 +30,9 @@ export class HomeContainer {
         this.sortingTypeInput.childNodes.forEach((ul) => {
             ul.childNodes.forEach((li) => {
                 li.addEventListener("click", () => {
-                    this.sortContent(li.firstChild?.nodeValue as SortType)
+                    this.sortType = li.firstChild?.nodeValue as SortType
+                    this.sortPopupMenu.className = "popup-hidden"
+                    this.sortPopupState = false
                 })
             })
         })
@@ -43,20 +46,30 @@ export class HomeContainer {
         }
     }
 
-    public render(productItems: ProductItem[]): void {
+    public render(productItems?: ProductItem[]): void {
+        if (productItems) {
+            this.workingProductData = productItems
+        } else if (!productItems && !this.workingProductData) {
+            this.workingProductData = this.productData
+        } else {
+            this.workingProductData = this.productData
+        }
+        this.sortContent()
         if (this.rootContainer.children.length > 1) {
             let cards = <HTMLCollection>document.getElementsByClassName('product_card')
-            while (cards[0]){
+            while (cards[0]) {
                 this.rootContainer.removeChild(cards[0])
             }
-            let filterCard = <HTMLDivElement>this.rootContainer.firstChild
-            if (filterCard.className == 'product_cnt_filter_cnt') {
-                this.rootContainer.innerHTML = ''
-                this.rootContainer.appendChild(filterCard)
+            if (this.rootContainer.children.length > 0) {
+                let filterCard = <HTMLDivElement>this.rootContainer.firstChild
+                if (filterCard.className == 'product_cnt_filter_cnt') {
+                    this.rootContainer.innerHTML = ''
+                    this.rootContainer.appendChild(filterCard)
+                }
             }
         }
 
-        productItems.forEach((productItem) => {
+        this.workingProductData.forEach((productItem) => {
             this.rootContainer.appendChild(ProductCard.createCard(productItem))
         })
 
@@ -98,8 +111,24 @@ export class HomeContainer {
             .catch((error) => console.log(`client error: ${error}`))
     }
 
-    private sortContent(sortingType: SortType): void {
-        this.sortTypeState = sortingType
+    private set sortType(sortingType: SortType) {
+        this._sortType = sortingType
+        this.render()
+    }
+
+    private sortContent(): ProductItem[] {
+        if (this.workingProductData) {
+            switch (this._sortType) {
+                case SortType.ASCENDING:
+                    return this.workingProductData.sort((a, b) => a.price - b.price)
+                case SortType.DESCENDING:
+                    return this.workingProductData.sort((a, b) => b.price - a.price)
+                default:
+                    return this.workingProductData.sort((a, b) => a.id - b.id)
+            }
+        } else {
+            throw new Error('productData undefined')
+        }
     }
 
     private showSortPopup() {

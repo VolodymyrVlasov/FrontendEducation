@@ -2,6 +2,7 @@ import {Color, Os} from "../types/index.js";
 import {Dimention} from "./Dimention.js";
 
 export interface ProductItem {
+    id: any;
     name: string
     orderInfo: OrderInfo
     os: Os
