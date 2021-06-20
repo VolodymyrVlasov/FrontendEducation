@@ -103,6 +103,8 @@ export class HomeContainer {
                 if (this.rootContainer) {
                     this.render(data)
                     this.filterComponent = new FilterComponent(this.rootContainer.id, this.filterButton.id, this)
+                    let search = <HTMLButtonElement>document?.getElementById("searchbar_input")
+                    search.addEventListener("input", (e) => this.filterComponent?.searchByName(e))
                     return data
                 } else {
                     throw new Error("cant find root container for content")

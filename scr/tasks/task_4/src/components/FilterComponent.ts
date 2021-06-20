@@ -15,6 +15,7 @@ export class FilterComponent {
     private readonly filterOs: Array<string>
     private readonly filterMemory: Array<string>
     private filterPrice: Array<number>
+    private filterName: string | undefined
     private homeContainer: HomeContainer
     private rangeFlag: boolean = false
 
@@ -60,12 +61,20 @@ export class FilterComponent {
             this.isFilterVisible = true
             let btn = <HTMLButtonElement>document?.getElementById("price_btn")
             btn.addEventListener("click", () => this.filterByPrice())
+
+            // let search = <HTMLButtonElement>document?.getElementById("searchbar_input")
+            // search.addEventListener("input", (e) => this.searchByName(e))
         } else {
             if (this.rootCnt.firstChild) {
                 this.rootCnt.removeChild(this.rootCnt.firstChild)
             }
             this.isFilterVisible = false
         }
+    }
+
+    public searchByName(e: any) {
+        this.filterName = e.target.value.toLowerCase()
+        this.filterItem()
     }
 
     public filterByPrice(event?: any) {
@@ -126,11 +135,17 @@ export class FilterComponent {
                 let isColor = product.color.some((color: string) => this.hasFilterData(this.filterValues.get('color'), color))
                 let isStorage = this.hasFilterData(this.filterValues.get('storage'), String(product.storage))
                 let isOs = this.hasFilterData(this.filterValues.get('os'), String(product.os))
-                if (this.rangeFlag) {
-                    let isPrice = this.hasRangeMatches(product.price)
-                    return isColor && isOs && isStorage && isPrice
+                let isName, isPrice = true;
+                if (this.filterName && this.filterName != '') {
+                    isName = this.hasNameMatches(product.name)
                 }
-                return isColor && isOs && isStorage
+                if (this.rangeFlag) {
+                    isPrice = this.hasRangeMatches(product.price)
+                }
+
+                isName = isName == undefined ? true : isName
+                console.log(isColor, isOs, isStorage, isName, isPrice)
+                return isColor && isOs && isStorage && isName && isPrice
             })
         }
         console.log(filteredData.length)
@@ -155,6 +170,16 @@ export class FilterComponent {
             return productPrice >= this.filterPrice[0]
         } else if (!this.filterPrice[0] && this.filterPrice[1]) {
             return productPrice <= this.filterPrice[1]
+        } else {
+            return true
+        }
+    }
+
+    private hasNameMatches(name: string): boolean {
+        if (this.filterName == '') {
+            return true
+        } else if (this.filterName && this.filterName !== '') {
+            return name.toLocaleLowerCase().includes(this.filterName)
         } else {
             return true
         }
