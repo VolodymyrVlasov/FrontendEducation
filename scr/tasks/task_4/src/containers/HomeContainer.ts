@@ -32,7 +32,7 @@ export class HomeContainer {
         this.sortButton.addEventListener("click", () => this.showSortPopup())
 
         this.inputSearch = <HTMLInputElement>document.getElementById('searchbar_input');
-        this.searchBarComponent = new SearchBarComponent(undefined, this.inputSearch)
+        this.searchBarComponent = new SearchBarComponent(this, 'searchbar_input')
 
         this.sortingTypeInput.childNodes.forEach((ul) => {
             ul.childNodes.forEach((li) => {
@@ -56,6 +56,7 @@ export class HomeContainer {
     public render(productItems?: ProductItem[]): void {
         if (productItems) {
             this.workingProductData = productItems
+            this._productData = productItems
         } else if (!productItems && !this.workingProductData) {
             this.workingProductData = this.productData
         } else {

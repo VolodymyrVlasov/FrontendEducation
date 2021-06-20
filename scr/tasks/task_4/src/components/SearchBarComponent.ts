@@ -1,44 +1,52 @@
+import {api} from "../api/Api.js";
+import {HomeContainer} from "../containers/HomeContainer.js";
+
 export interface ISearchBarComponent {
-    search(): void
+    search(params: string): void
 }
 
 
 export class SearchBarComponent implements ISearchBarComponent {
-    input: HTMLInputElement
-    isUserInputSessionInactive: boolean
+    private input: HTMLInputElement
+    private isUserInputSessionInactive: boolean
+    private homeContainer: HomeContainer
 
-    constructor(inputId?: string, input?: HTMLInputElement) {
-        if (inputId && input == undefined) {
-            this.input = <HTMLInputElement>document.getElementById(inputId)
-        } else if (input) {
-            this.input = input
-        } else {
+    constructor(homeContainer: HomeContainer, inputId: string) {
+        this.homeContainer = homeContainer
+        if (!inputId) {
             throw new Error("Search bar input component is not found! (ts: 10)")
+        } else {
+            this.input = <HTMLInputElement>document.getElementById(inputId)
         }
-
         this.isUserInputSessionInactive = true
-
-        this.input.addEventListener('focusin', (e) => {
+        this.input.addEventListener('focusin', e => {
             this.isUserInputSessionInactive = false
-            console.log("enter was started")
+            console.log('search focusin')
         })
-
+        this.input.addEventListener('focusout', (e: any) => {
+            !this.isUserInputSessionInactive && this.search(e.target.value)
+            console.log('search focusout')
+        })
         this.input.addEventListener('keyup', (e: any) => {
-            if (e.keyCode === 13 && !this.isUserInputSessionInactive) {
-                this.search()
-                console.log("enter was pressed")
+            if (e.keyCode === 13) {
+                this.search(e.target.value)
+                console.log('search keyup')
+
             }
-        })
-
-        this.input.addEventListener('focusout', (e) => {
-            !this.isUserInputSessionInactive && this.search()
-            console.log("focus on input was lost")
-
         })
     }
 
-    public search(): void {
+    public search(params: string): void {
         console.log('search for searchbar input')
         this.isUserInputSessionInactive = true
+
+        api.search(params)
+            .then(data => {
+                console.log(data)
+                this.homeContainer.render(data)
+            })
+            .catch(error => {
+                throw new Error(`search failed with error ${error}`)
+            })
     }
 }
