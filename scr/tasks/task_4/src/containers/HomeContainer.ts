@@ -3,8 +3,12 @@ import {ApiConfig} from "../api/ApiConfig.js"
 import {ProductItem} from "../models/ProductItem.js";
 import {FilterComponent} from "../components/FilterComponent.js";
 import {ProductCard} from "../components/ProductCard.js";
+import {SearchBarComponent} from "../components/SearchBarComponent.js";
+import {api} from "../api/Api.js";
 
 export class HomeContainer {
+    private inputSearch: HTMLInputElement
+    private searchBarComponent: SearchBarComponent
     private rootContainer: HTMLDivElement
     private searchInput: HTMLInputElement
     private sortButton: HTMLButtonElement
@@ -26,6 +30,9 @@ export class HomeContainer {
         this.sortPopupMenu = <HTMLDivElement>document.getElementById("sort_popup_menu")
         this.sortingTypeInput = <HTMLUListElement>document.getElementById("sorting_type")
         this.sortButton.addEventListener("click", () => this.showSortPopup())
+
+        this.inputSearch = <HTMLInputElement>document.getElementById('searchbar_input');
+        this.searchBarComponent = new SearchBarComponent(undefined, this.inputSearch)
 
         this.sortingTypeInput.childNodes.forEach((ul) => {
             ul.childNodes.forEach((li) => {
@@ -76,7 +83,6 @@ export class HomeContainer {
         let itemCount: number = <number>document.getElementsByClassName("product_card").length
         let root = document.documentElement;
         root.style.setProperty("--grid-item-rows", String(Math.ceil(itemCount / 2) + 1));
-
     }
 
     private init(): void {
@@ -88,23 +94,17 @@ export class HomeContainer {
             arrows: true,
         })
 
-        fetch(ApiConfig.URL)
-            .then((response): Promise<ProductItem[]> => {
-                if (!response.ok) {
-                    throw new Error("Failed to access json data file")
-                }
-                return response.json()
-            })
+        api.getProductData()
             .then((data) => {
                 this._productData = data
                 return data
             })
-            .then((data: ProductItem[]) => {
+            .then(data => {
                 if (this.rootContainer) {
                     this.render(data)
                     this.filterComponent = new FilterComponent(this.rootContainer.id, this.filterButton.id, this)
-                    let search = <HTMLButtonElement>document?.getElementById("searchbar_input")
-                    search.addEventListener("input", (e) => this.filterComponent?.searchByName(e))
+                    // let search = <HTMLButtonElement>document?.getElementById("searchbar_input")
+                    // search.addEventListener("input", (e) => this.filterComponent?.searchByName(e))
                     return data
                 } else {
                     throw new Error("cant find root container for content")

@@ -132,24 +132,22 @@ export class FilterComponent {
         let filteredData: Array<ProductItem> = new Array<ProductItem>()
         if (dataToFilter) {
             filteredData = dataToFilter.filter((product) => {
-                let isColor = product.color.some((color: string) => this.hasFilterData(this.filterValues.get('color'), color))
-                let isStorage = this.hasFilterData(this.filterValues.get('storage'), String(product.storage))
-                let isOs = this.hasFilterData(this.filterValues.get('os'), String(product.os))
-                let isName, isPrice = true;
-                if (this.filterName && this.filterName != '') {
-                    isName = this.hasNameMatches(product.name)
+                    let isColor = product.color.some((color: string) => this.hasFilterData(this.filterValues.get('color'), color))
+                    let isStorage = this.hasFilterData(this.filterValues.get('storage'), String(product.storage))
+                    let isOs = this.hasFilterData(this.filterValues.get('os'), String(product.os))
+                    let isName, isPrice = true;
+                    if (this.filterName && this.filterName != '') {
+                        isName = this.hasNameMatches(product.name)
+                        return isName
+                    }
+                    if (this.rangeFlag) {
+                        isPrice = this.hasRangeMatches(product.price)
+                    }
+                    isName = isName == undefined
+                    return isColor && isOs && isStorage && isName && isPrice
                 }
-                if (this.rangeFlag) {
-                    isPrice = this.hasRangeMatches(product.price)
-                }
-
-                isName = isName == undefined ? true : isName
-                console.log(isColor, isOs, isStorage, isName, isPrice)
-                return isColor && isOs && isStorage && isName && isPrice
-            })
+            )
         }
-        console.log(filteredData.length)
-
         if (filteredData.length == 0) {
             console.log('No matches')
         }
@@ -157,10 +155,7 @@ export class FilterComponent {
     }
 
     private hasFilterData(filterTags: Array<any> | undefined, productTag: string): boolean {
-        if (filterTags != undefined && filterTags?.length != 0) {
-            return filterTags.includes(productTag)
-        }
-        return true
+        return filterTags != undefined && filterTags?.length != 0 ? filterTags.includes(productTag) : true
     }
 
     private hasRangeMatches(productPrice: number): boolean {
