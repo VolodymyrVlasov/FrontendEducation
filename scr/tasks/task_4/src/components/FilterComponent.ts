@@ -2,7 +2,7 @@ import {Color, Memory, Os} from "../types/index.js";
 import {FilterItem, IFilterItem} from "./FilterItem.js";
 import {HomeContainer} from "../containers/HomeContainer";
 import {ProductItem} from "../models/ProductItem";
-import Event = JQuery.Event;
+import {OopsCard} from "./OppsCard.js";
 
 export class FilterComponent {
     rootCnt: HTMLDivElement
@@ -135,21 +135,14 @@ export class FilterComponent {
                     let isColor = product.color.some((color: string) => this.hasFilterData(this.filterValues.get('color'), color))
                     let isStorage = this.hasFilterData(this.filterValues.get('storage'), String(product.storage))
                     let isOs = this.hasFilterData(this.filterValues.get('os'), String(product.os))
-                    let isName, isPrice = true;
-                    if (this.filterName && this.filterName != '') {
-                        isName = this.hasNameMatches(product.name)
-                        return isName
-                    }
-                    if (this.rangeFlag) {
-                        isPrice = this.hasRangeMatches(product.price)
-                    }
-                    isName = isName == undefined
-                    return isColor && isOs && isStorage && isName && isPrice
+                    let isPrice = this.rangeFlag ? this.hasRangeMatches(product.price) : true
+
+                    return isColor && isOs && isStorage && isPrice
                 }
             )
         }
         if (filteredData.length == 0) {
-            console.log('No matches')
+            OopsCard.scheduleRender()
         }
         this.homeContainer.render(filteredData)
     }

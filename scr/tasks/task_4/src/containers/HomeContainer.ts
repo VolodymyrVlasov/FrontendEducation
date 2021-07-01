@@ -1,5 +1,4 @@
 import {SortType} from "../types/SortType.js";
-import {ApiConfig} from "../api/ApiConfig.js"
 import {ProductItem} from "../models/ProductItem.js";
 import {FilterComponent} from "../components/FilterComponent.js";
 import {ProductCard} from "../components/ProductCard.js";
@@ -54,7 +53,7 @@ export class HomeContainer {
     }
 
     public render(productItems?: ProductItem[]): void {
-        if (productItems) {
+        if (productItems && productItems.length != 0) {
             this.workingProductData = productItems
             this._productData = productItems
         } else if (!productItems && !this.workingProductData) {
@@ -62,6 +61,7 @@ export class HomeContainer {
         } else {
             this.workingProductData = this.productData
         }
+
         this.sortContent()
         if (this.rootContainer.children.length > 1) {
             let cards = <HTMLCollection>document.getElementsByClassName('product_card')
@@ -77,6 +77,7 @@ export class HomeContainer {
             }
         }
 
+        console.log(this.workingProductData)
         this.workingProductData.forEach((productItem) => {
             this.rootContainer.appendChild(ProductCard.createCard(productItem))
         })
@@ -84,6 +85,13 @@ export class HomeContainer {
         let itemCount: number = <number>document.getElementsByClassName("product_card").length
         let root = document.documentElement;
         root.style.setProperty("--grid-item-rows", String(Math.ceil(itemCount / 2) + 1));
+    }
+
+    private addListener(products: ProductItem[]) {
+        products.forEach((product: ProductItem) => {
+            let productBtn: HTMLButtonElement = <HTMLButtonElement>document?.getElementById(`btn_${product.id}`)
+            productBtn?.addEventListener('click', (e) => console.log(e.target))
+        })
     }
 
     private init(): void {
@@ -103,10 +111,8 @@ export class HomeContainer {
             .then(data => {
                 if (this.rootContainer) {
                     this.render(data)
+                    this.addListener(data)
                     this.filterComponent = new FilterComponent(this.rootContainer.id, this.filterButton.id, this)
-                    // let search = <HTMLButtonElement>document?.getElementById("searchbar_input")
-                    // search.addEventListener("input", (e) => this.filterComponent?.searchByName(e))
-                    return data
                 } else {
                     throw new Error("cant find root container for content")
                 }
