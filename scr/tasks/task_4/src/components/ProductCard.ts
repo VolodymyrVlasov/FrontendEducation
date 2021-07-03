@@ -2,6 +2,8 @@ import {ProductItem} from "../models/ProductItem.js";
 
 export class ProductCard {
     public static createCard(item: ProductItem): HTMLElement {
+        let btnId = `btn_${item.id}`
+
         let productItemCard = document.createElement('div')
         productItemCard.className = 'product_card'
         productItemCard.innerHTML = `
@@ -19,7 +21,7 @@ export class ProductCard {
             <span>Price: <strong>${item.price}</strong> $</span>
         </div>
         <div class="product_card_body_btn">
-            <button>Add to cart</button>
+            <button id="${btnId}">Add to cart</button>
         </div>
     </div>
     <div class="product_card_footer">

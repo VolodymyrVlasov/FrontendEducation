@@ -1,0 +1,118 @@
+$popup-margin_horizontal: 50px;
+$popup-margin_vertical: 30px;
+
+
+.popup {
+
+  &_backdrop {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+
+  &_product_card {
+    display: flex;
+    flex-direction: row;
+    //width: 1020px;
+    //height: 490px;
+    border-radius: 5px;
+    background-color: #ffffff;
+
+    &_section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      padding: $popup-margin_vertical $popup-margin_horizontal;
+
+      &_img {
+        width: 200px;
+        height: 200px;
+      }
+    }
+
+    &_center {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      border-right: 1px solid #E2E2E2;
+      border-left: 1px solid #E2E2E2;
+      flex: 1.5;
+      padding: $popup-margin_vertical $popup-margin_horizontal;
+
+      h3 {
+        @include typo(24px, bold, $dark_blue);
+      }
+
+      &_social {
+        @include flex();
+
+        bottom: 0;
+        width: 300px;
+        height: 85px;
+        background-color: #DAE2EA;
+        border-radius: 10px;
+        padding-top: 20px;
+        @include typo(14px, regular, $dark_blue);
+
+        &_ico {
+          @include flex(column);
+          align-items: center;
+          width: 40px;
+
+          img {
+            width: 17px;
+          }
+        }
+
+        &_rate {
+          @include flex(column);
+          align-items: start;
+          flex: 1;
+
+
+          p {
+            margin: 0 0 6px 0;
+            font-family: "Roboto", sans-serif;
+          }
+        }
+
+        &_orders {
+          @include flex(column);
+          align-items: center;
+          width: 90px;
+
+          p {
+            margin: 0 0 6px 0;
+            font-family: "Roboto", sans-serif;
+          }
+        }
+      }
+
+      &_options {
+        margin-top: 24px;
+
+        li{
+          padding-bottom: 10px;
+          div {
+            @include typo(14px, 300, $text_gray);
+            span {
+              @include typo(14px, 300, black);
+            }
+          }
+        }
+
+      }
+    }
+  }
+}

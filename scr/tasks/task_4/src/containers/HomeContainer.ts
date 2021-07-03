@@ -1,10 +1,10 @@
 import {SortType} from "../types/SortType.js";
-import {ApiConfig} from "../api/ApiConfig.js"
 import {ProductItem} from "../models/ProductItem.js";
 import {FilterComponent} from "../components/FilterComponent.js";
 import {ProductCard} from "../components/ProductCard.js";
 import {SearchBarComponent} from "../components/SearchBarComponent.js";
 import {api} from "../api/Api.js";
+import {OopsCard} from "../components/OppsCard.js";
 
 export class HomeContainer {
     private inputSearch: HTMLInputElement
@@ -45,23 +45,36 @@ export class HomeContainer {
         })
     }
 
+
+
     public get productData(): ProductItem[] {
-        if (this._productData) {
-            return this._productData
+        if (this.workingProductData) {
+            return this.workingProductData
         } else {
             throw new Error('productData undefined')
         }
     }
 
+    // начальный рендер станицы - 34
+    // при фильтрации - 0-34
+    // при поиске - 0-34
+
+    // при сортировке - 0-34
+
     public render(productItems?: ProductItem[]): void {
-        if (productItems) {
+        console.log(productItems?.length)
+        if (productItems && productItems.length == 0) {
+            OopsCard.scheduleRender()
+            this.filterComponent?.clearFilterParams()
+            this.workingProductData = this.productData
+        } else if (productItems && productItems.length != 0) {
             this.workingProductData = productItems
-            this._productData = productItems
         } else if (!productItems && !this.workingProductData) {
             this.workingProductData = this.productData
         } else {
             this.workingProductData = this.productData
         }
+
         this.sortContent()
         if (this.rootContainer.children.length > 1) {
             let cards = <HTMLCollection>document.getElementsByClassName('product_card')
@@ -86,6 +99,13 @@ export class HomeContainer {
         root.style.setProperty("--grid-item-rows", String(Math.ceil(itemCount / 2) + 1));
     }
 
+    private addListener(products: ProductItem[]) {
+        products.forEach((product: ProductItem) => {
+            let productBtn: HTMLButtonElement = <HTMLButtonElement>document?.getElementById(`btn_${product.id}`)
+            productBtn?.addEventListener('click', (e) => console.log(e.target))
+        })
+    }
+
     private init(): void {
         $(".slider").slick({
             infinite: true,
@@ -102,11 +122,9 @@ export class HomeContainer {
             })
             .then(data => {
                 if (this.rootContainer) {
-                    this.render(data)
+                    setTimeout(() => this.render(data), 10)
+                    this.addListener(data)
                     this.filterComponent = new FilterComponent(this.rootContainer.id, this.filterButton.id, this)
-                    // let search = <HTMLButtonElement>document?.getElementById("searchbar_input")
-                    // search.addEventListener("input", (e) => this.filterComponent?.searchByName(e))
-                    return data
                 } else {
                     throw new Error("cant find root container for content")
                 }

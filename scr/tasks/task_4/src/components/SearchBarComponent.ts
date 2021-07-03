@@ -14,35 +14,27 @@ export class SearchBarComponent implements ISearchBarComponent {
     constructor(homeContainer: HomeContainer, inputId: string) {
         this.homeContainer = homeContainer
         if (!inputId) {
-            throw new Error("Search bar input component is not found! (ts: 10)")
+            throw new Error("Search bar input component is not found! (ts: 17)")
         } else {
             this.input = <HTMLInputElement>document.getElementById(inputId)
         }
         this.isUserInputSessionInactive = true
-        this.input.addEventListener('focusin', e => {
-            this.isUserInputSessionInactive = false
-            console.log('search focusin')
-        })
-        this.input.addEventListener('focusout', (e: any) => {
-            !this.isUserInputSessionInactive && this.search(e.target.value)
-            console.log('search focusout')
-        })
+        this.input.addEventListener('focusin', e => this.isUserInputSessionInactive = false)
+        this.input.addEventListener('focusout', (e: any) => !this.isUserInputSessionInactive && this.search(e.target.value))
         this.input.addEventListener('keyup', (e: any) => {
             if (e.keyCode === 13) {
                 this.search(e.target.value)
-                console.log('search keyup')
-
             }
         })
     }
 
     public search(params: string): void {
-        console.log('search for searchbar input')
         this.isUserInputSessionInactive = true
-
         api.search(params)
             .then(data => {
-                console.log(data)
+                if (data.length == 0) {
+                    this.input.value = ''
+                }
                 this.homeContainer.render(data)
             })
             .catch(error => {
