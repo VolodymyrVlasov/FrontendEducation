@@ -1,13 +1,15 @@
 export class OopsCard {
 
     public static scheduleRender() {
+        debugger
         let doc: HTMLElement = <HTMLElement>document?.getElementsByTagName('body')[0]
         doc.appendChild(this.getCard())
-        setTimeout(this.removeOopsCard, 1500)
+        setTimeout(this.removeOopsCard, 1000)
     }
 
     private static getCard(): HTMLDivElement {
         let card: HTMLDivElement = document.createElement('div')
+        card.addEventListener('click', () => this.removeOopsCard())
         card.innerHTML = `
         <div class="popup_search" id="popup_search_no_matches">
             <div  class="popup_search_no_matches">
@@ -24,7 +26,5 @@ export class OopsCard {
         let doc: HTMLElement = <HTMLElement>document?.getElementById('popup_search_no_matches')
         doc.style.height = '0'
         doc.style.display = 'none'
-        // doc.removeChild(<HTMLElement>document?.getElementById('popup_search_no_matches'))
     }
-
 }

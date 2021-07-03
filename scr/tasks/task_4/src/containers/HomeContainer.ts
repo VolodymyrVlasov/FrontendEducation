@@ -4,6 +4,7 @@ import {FilterComponent} from "../components/FilterComponent.js";
 import {ProductCard} from "../components/ProductCard.js";
 import {SearchBarComponent} from "../components/SearchBarComponent.js";
 import {api} from "../api/Api.js";
+import {OopsCard} from "../components/OppsCard.js";
 
 export class HomeContainer {
     private inputSearch: HTMLInputElement
@@ -53,7 +54,11 @@ export class HomeContainer {
     }
 
     public render(productItems?: ProductItem[]): void {
-        if (productItems && productItems.length != 0) {
+        console.log(productItems?.length)
+        if (productItems && productItems.length == 0) {
+            OopsCard.scheduleRender()
+            this.workingProductData = this.productData
+        } else if (productItems && productItems.length != 0) {
             this.workingProductData = productItems
             this._productData = productItems
         } else if (!productItems && !this.workingProductData) {
@@ -77,7 +82,7 @@ export class HomeContainer {
             }
         }
 
-        console.log(this.workingProductData)
+
         this.workingProductData.forEach((productItem) => {
             this.rootContainer.appendChild(ProductCard.createCard(productItem))
         })
@@ -110,7 +115,7 @@ export class HomeContainer {
             })
             .then(data => {
                 if (this.rootContainer) {
-                    this.render(data)
+                    setTimeout(() => this.render(data), 50)
                     this.addListener(data)
                     this.filterComponent = new FilterComponent(this.rootContainer.id, this.filterButton.id, this)
                 } else {
