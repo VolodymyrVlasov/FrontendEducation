@@ -14,7 +14,7 @@ export class FakeBackend {
             let isPrice = item.price == Number(params)
             let isColor =  item.color.some((color: string) => {
                  return color.toLocaleLowerCase().includes(params.toLocaleLowerCase())
-            } )
+            })
             return isName || isPrice || isColor
         })
 

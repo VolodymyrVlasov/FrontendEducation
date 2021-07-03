@@ -30,9 +30,11 @@ export class SearchBarComponent implements ISearchBarComponent {
 
     public search(params: string): void {
         this.isUserInputSessionInactive = true
-
         api.search(params)
             .then(data => {
+                if (data.length == 0) {
+                    this.input.value = ''
+                }
                 this.homeContainer.render(data)
             })
             .catch(error => {

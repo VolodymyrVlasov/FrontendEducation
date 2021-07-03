@@ -1,10 +1,8 @@
 export class OopsCard {
-
     public static scheduleRender() {
-        debugger
         let doc: HTMLElement = <HTMLElement>document?.getElementsByTagName('body')[0]
         doc.appendChild(this.getCard())
-        setTimeout(this.removeOopsCard, 1000)
+        setTimeout(this.removeOopsCard, 2000)
     }
 
     private static getCard(): HTMLDivElement {
@@ -24,7 +22,8 @@ export class OopsCard {
 
     private static removeOopsCard(): void {
         let doc: HTMLElement = <HTMLElement>document?.getElementById('popup_search_no_matches')
-        doc.style.height = '0'
-        doc.style.display = 'none'
+        doc.style.opacity = '0'
+
+        setTimeout(() => doc?.parentElement?.removeChild(doc), 300)
     }
 }

@@ -702,7 +702,9 @@ body, button, ul, li, p {
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: ease 0.3s;
+  opacity: 1;
+  animation: fadeIn 0.3s;
+  transition: opacity 0.3s ease-out;
 }
 .popup_search_no_matches {
   display: flex;
@@ -727,6 +729,14 @@ body, button, ul, li, p {
   font-size: 18px;
   font-weight: normal;
   color: #767272;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

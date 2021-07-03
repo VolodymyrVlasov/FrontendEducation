@@ -45,22 +45,30 @@ export class HomeContainer {
         })
     }
 
+
+
     public get productData(): ProductItem[] {
-        if (this._productData) {
-            return this._productData
+        if (this.workingProductData) {
+            return this.workingProductData
         } else {
             throw new Error('productData undefined')
         }
     }
 
+    // начальный рендер станицы - 34
+    // при фильтрации - 0-34
+    // при поиске - 0-34
+
+    // при сортировке - 0-34
+
     public render(productItems?: ProductItem[]): void {
         console.log(productItems?.length)
         if (productItems && productItems.length == 0) {
             OopsCard.scheduleRender()
+            this.filterComponent?.clearFilterParams()
             this.workingProductData = this.productData
         } else if (productItems && productItems.length != 0) {
             this.workingProductData = productItems
-            this._productData = productItems
         } else if (!productItems && !this.workingProductData) {
             this.workingProductData = this.productData
         } else {
@@ -81,7 +89,6 @@ export class HomeContainer {
                 }
             }
         }
-
 
         this.workingProductData.forEach((productItem) => {
             this.rootContainer.appendChild(ProductCard.createCard(productItem))
@@ -115,7 +122,7 @@ export class HomeContainer {
             })
             .then(data => {
                 if (this.rootContainer) {
-                    setTimeout(() => this.render(data), 50)
+                    setTimeout(() => this.render(data), 10)
                     this.addListener(data)
                     this.filterComponent = new FilterComponent(this.rootContainer.id, this.filterButton.id, this)
                 } else {

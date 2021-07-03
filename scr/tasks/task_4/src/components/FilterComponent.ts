@@ -72,9 +72,15 @@ export class FilterComponent {
         }
     }
 
-    public searchByName(e: any) {
-        this.filterName = e.target.value.toLowerCase()
-        this.filterItem()
+    public clearFilterParams(): void {
+        let checkboxes: HTMLCollection = <HTMLCollection>document?.getElementsByClassName('filter_input_item_inut')
+        if (checkboxes && checkboxes.length != 0) {
+            Array.from(checkboxes).forEach((checkbox) => (<HTMLInputElement>checkbox).checked = false)
+        }
+        let priceInputs = <HTMLCollection> document?.getElementsByClassName('filter_input_item_input')
+        if (priceInputs && priceInputs.length !=0) {
+            Array.from(priceInputs).forEach(input => (<HTMLInputElement>input).value = '')
+        }
     }
 
     public filterByPrice(event?: any) {
@@ -129,6 +135,7 @@ export class FilterComponent {
 
     private filterItem() {
         let dataToFilter: Array<ProductItem> = this.homeContainer.productData
+        console.log("filter component > " + dataToFilter.length)
         let filteredData: Array<ProductItem> = new Array<ProductItem>()
         if (dataToFilter) {
             filteredData = dataToFilter.filter((product) => {
@@ -144,6 +151,7 @@ export class FilterComponent {
         if (filteredData.length == 0) {
             OopsCard.scheduleRender()
         }
+        console.log("filter component filteredData > " + filteredData.length)
         this.homeContainer.render(filteredData)
     }
 
@@ -158,16 +166,6 @@ export class FilterComponent {
             return productPrice >= this.filterPrice[0]
         } else if (!this.filterPrice[0] && this.filterPrice[1]) {
             return productPrice <= this.filterPrice[1]
-        } else {
-            return true
-        }
-    }
-
-    private hasNameMatches(name: string): boolean {
-        if (this.filterName == '') {
-            return true
-        } else if (this.filterName && this.filterName !== '') {
-            return name.toLocaleLowerCase().includes(this.filterName)
         } else {
             return true
         }
