@@ -23,7 +23,6 @@ export class OopsCard {
     private static removeOopsCard(): void {
         let doc: HTMLElement = <HTMLElement>document?.getElementById('popup_search_no_matches')
         doc.style.opacity = '0'
-
         setTimeout(() => doc?.parentElement?.removeChild(doc), 300)
     }
 }

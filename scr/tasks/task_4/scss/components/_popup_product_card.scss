@@ -5,7 +5,7 @@ $popup-margin_vertical: 30px;
 .popup {
 
   &_backdrop {
-    position: absolute;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +15,7 @@ $popup-margin_vertical: 30px;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   &_product_card {
@@ -113,6 +113,9 @@ $popup-margin_vertical: 30px;
         }
 
       }
+    }
+    &_price {
+      @include typo(24px, bold, $dark_blue);
     }
   }
 }

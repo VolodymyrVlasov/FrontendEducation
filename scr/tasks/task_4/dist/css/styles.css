@@ -557,7 +557,7 @@ body, button, ul, li, p {
 }
 
 .popup_backdrop {
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -567,7 +567,7 @@ body, button, ul, li, p {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .popup_product_card {
   display: flex;
@@ -663,6 +663,12 @@ body, button, ul, li, p {
   font-size: 14px;
   font-weight: 300;
   color: black;
+}
+.popup_product_card_price {
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #3B3E66;
 }
 
 * {

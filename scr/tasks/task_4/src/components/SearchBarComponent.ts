@@ -5,7 +5,6 @@ export interface ISearchBarComponent {
     search(params: string): void
 }
 
-
 export class SearchBarComponent implements ISearchBarComponent {
     private input: HTMLInputElement
     private isUserInputSessionInactive: boolean

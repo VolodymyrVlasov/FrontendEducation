@@ -14,6 +14,10 @@ export interface ProductItem {
     display: number
     imgUrl: string
     orders: number
+    chip: {
+        name: string
+        cores: number
+    }
 }
 
 export interface OrderInfo {

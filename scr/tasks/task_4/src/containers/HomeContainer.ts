@@ -5,6 +5,7 @@ import {ProductCard} from "../components/ProductCard.js";
 import {SearchBarComponent} from "../components/SearchBarComponent.js";
 import {api} from "../api/Api.js";
 import {OopsCard} from "../components/OppsCard.js";
+import {FullProductCard} from "../components/FullProductCard.js";
 
 export class HomeContainer {
     private inputSearch: HTMLInputElement
@@ -44,7 +45,6 @@ export class HomeContainer {
             })
         })
     }
-
 
 
     public get productData(): ProductItem[] {
@@ -91,7 +91,9 @@ export class HomeContainer {
         }
 
         this.workingProductData.forEach((productItem) => {
-            this.rootContainer.appendChild(ProductCard.createCard(productItem))
+            let card = ProductCard.createCard(productItem)
+            this.rootContainer.appendChild(card)
+            card.addEventListener('click', () => new FullProductCard().render(productItem))
         })
 
         let itemCount: number = <number>document.getElementsByClassName("product_card").length
