@@ -1,0 +1,44 @@
+@import "../theme/variables.scss";
+
+.cart {
+  &_wrapper {
+    position: relative;
+    display: flex;
+    width: 50px;
+    height: 45px;
+  }
+
+  &_button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6px;
+    border: 2px solid #959595;
+    border-radius: 50%;
+    background: transparent;
+    height: 40px;
+    width: 40px;
+
+    img {
+      height: 25px;
+      width: 25px;
+    }
+  }
+
+  &_index {
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color:$blue;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #fff;
+    @include typo(14px, normal, #fff);
+
+  }
+}

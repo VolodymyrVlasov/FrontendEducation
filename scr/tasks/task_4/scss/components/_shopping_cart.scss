@@ -1,0 +1,127 @@
+@import "../theme/_mixins.scss";
+
+
+.cart_card {
+  position: absolute;
+  top: 62px;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+  border-radius: 10px;
+  border: 1px solid $gray;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.15);
+
+
+  &_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+
+    p {
+      @include typo(24px, 600, #000);
+    }
+
+    span {
+      @include typo(16px, 400, $text_gray);
+    }
+  }
+
+  &_items_cnt {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 17px 40px;
+    background-color: $background_blue;
+    border-top: $border-top;
+
+    &_str {
+      @include typo(12px, 300, $text_gray);
+    }
+
+    &_value {
+      @include typo(12px, 600, #000);
+    }
+  }
+
+  &_btn_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 100px;
+
+    button {
+      @include button_active(22px);
+      padding: 10px 100px;
+    }
+  }
+}
+
+.item {
+  &_card_cart {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px 30px;
+    border-top: $border-top;
+  }
+
+  &_cnt {
+    padding: 0 5px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+    &_img {
+      width: 100px;
+      height: 100px;
+    }
+
+    &_title {
+      @include typo(12px, 600, $black)
+    }
+
+    &_price {
+      @include typo(12px, 400, $lightblue);
+      padding: 3px 9px;
+      width: fit-content;
+      background-color: $background_blue;
+      border-radius: 3px;
+      margin-top: 10px;
+    }
+
+    &_row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    &_btn {
+      @include cart_btn;
+    }
+
+    &_amount {
+      @include typo(20px, 600, $lightblue);
+      padding: 0 15px;
+      line-height: 20px;
+    }
+
+    &_btn_del {
+      @include cart_btn($background_red, $red);
+      margin-left: 25px;
+    }
+  }
+}

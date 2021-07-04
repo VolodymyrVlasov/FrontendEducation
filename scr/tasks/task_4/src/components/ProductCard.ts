@@ -21,7 +21,7 @@ export class ProductCard {
                     <span>Price: <strong>${item.price}</strong> $</span>
                 </div>
                 <div class="product_card_body_btn">
-                    <button id="${btnId}">Add to cart</button>
+                    <button ">View</button>
                 </div>
             </div>
             <div class="product_card_footer">

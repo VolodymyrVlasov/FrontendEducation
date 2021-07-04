@@ -1,13 +1,17 @@
 import {ProductItem} from "../models/ProductItem.js";
+import {ShoppingCart} from "./ShoppingCart.js";
 
 export class FullProductCard {
     private card?: HTMLElement
+    private addToCartBtn?: HTMLButtonElement
 
-    public render(product: ProductItem): void {
+    public render(product: ProductItem, shoppingCart: ShoppingCart): void {
         let body = <HTMLElement>document?.getElementsByTagName('body')[0]
         body.appendChild(this.getFullProductCard(product))
         this.card = <HTMLElement>document?.getElementById('popup_backdrop')
         this.card.addEventListener('click', (e) => this.closeFullCard(e))
+        this.addToCartBtn = <HTMLButtonElement>document.getElementById(`btn_${product.id}`)
+        this.addToCartBtn.addEventListener('click', () => shoppingCart.addItem(product))
     }
 
     private getFullProductCard(product: ProductItem): HTMLDivElement {
@@ -15,7 +19,8 @@ export class FullProductCard {
         let btnId = `btn_${product.id}`
         card.innerHTML =
             `
-        <div class="popup_backdrop" id="popup_backdrop" >
+        <div class="popup_wrapper" id="popup_wrapper">
+             <div class="popup_backdrop" id="popup_backdrop"></div>
             <div class="popup_product_card">
                 <div class="popup_product_card_section">
                     <img class="popup_product_card_section_img" src="./assets/${product.imgUrl}" alt="${product.name}">
@@ -74,16 +79,12 @@ export class FullProductCard {
                     </div>
                 </div>
             </div>
-        </div>
+      </div>
         `
-
         return card
     }
 
     private closeFullCard(e: MouseEvent) {
-        let clickedElement = <HTMLElement>e.target
-        if (this.card?.id == clickedElement.id) {
-            this.card?.parentElement?.removeChild(this.card)
-        }
+        document?.getElementById('popup_wrapper')?.parentElement?.remove()
     }
 }

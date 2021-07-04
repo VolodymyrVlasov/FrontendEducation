@@ -6,6 +6,7 @@ import {SearchBarComponent} from "../components/SearchBarComponent.js";
 import {api} from "../api/Api.js";
 import {OopsCard} from "../components/OppsCard.js";
 import {FullProductCard} from "../components/FullProductCard.js";
+import {ShoppingCart} from "../components/ShoppingCart.js";
 
 export class HomeContainer {
     private inputSearch: HTMLInputElement
@@ -21,6 +22,7 @@ export class HomeContainer {
     private filterComponent?: FilterComponent
     private _productData?: ProductItem[]
     private workingProductData?: ProductItem[]
+    private cart: ShoppingCart
 
     constructor() {
         this.init()
@@ -44,8 +46,9 @@ export class HomeContainer {
                 })
             })
         })
-    }
 
+        this.cart = new ShoppingCart("shopping_cart")
+    }
 
     public get productData(): ProductItem[] {
         if (this.workingProductData) {
@@ -54,12 +57,6 @@ export class HomeContainer {
             throw new Error('productData undefined')
         }
     }
-
-    // начальный рендер станицы - 34
-    // при фильтрации - 0-34
-    // при поиске - 0-34
-
-    // при сортировке - 0-34
 
     public render(productItems?: ProductItem[]): void {
         console.log(productItems?.length)
@@ -93,7 +90,7 @@ export class HomeContainer {
         this.workingProductData.forEach((productItem) => {
             let card = ProductCard.createCard(productItem)
             this.rootContainer.appendChild(card)
-            card.addEventListener('click', () => new FullProductCard().render(productItem))
+            card.addEventListener('click', () => new FullProductCard().render(productItem, this.cart))
         })
 
         let itemCount: number = <number>document.getElementsByClassName("product_card").length

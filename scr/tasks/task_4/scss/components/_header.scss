@@ -7,23 +7,10 @@ $header-height: 80px;
   .header-nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: $header-height;
 
-    .cart  {
-        button {
-            padding: 6px;
-            border: 2px solid #959595;
-            border-radius: 50%;
-            background: transparent;
-            height: 40px;
-            width: 40px;
-        }
-        
-        img {
-            height: 25px;
-            width: 25px;
-        }
-    }
+
   }
 
   .flex-center {
