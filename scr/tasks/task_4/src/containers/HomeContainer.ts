@@ -33,7 +33,6 @@ export class HomeContainer {
         this.sortPopupMenu = <HTMLDivElement>document.getElementById("sort_popup_menu")
         this.sortingTypeInput = <HTMLUListElement>document.getElementById("sorting_type")
         this.sortButton.addEventListener("click", () => this.showSortPopup())
-
         this.inputSearch = <HTMLInputElement>document.getElementById('searchbar_input');
         this.searchBarComponent = new SearchBarComponent(this, 'searchbar_input')
 
@@ -116,8 +115,7 @@ export class HomeContainer {
 
         api.getProductData()
             .then((data) => {
-                this._productData = data
-                return data
+                return this._productData = data
             })
             .then(data => {
                 if (this.rootContainer) {
