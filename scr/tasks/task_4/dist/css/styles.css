@@ -10,7 +10,7 @@ body, button, ul, li, p {
 }
 
 .width-cnt {
-  width: 1025px;
+  max-width: 1025px;
   margin: 0 auto;
   position: relative;
 }
@@ -25,6 +25,7 @@ body, button, ul, li, p {
 .banner {
   position: relative;
   display: flex;
+  margin-top: 100px;
   align-items: center;
   justify-content: center;
 }
@@ -72,7 +73,7 @@ body, button, ul, li, p {
 }
 
 .width-cnt {
-  width: 1025px;
+  max-width: 1025px;
   margin: 0 auto;
   position: relative;
 }
@@ -259,7 +260,7 @@ body, button, ul, li, p {
 }
 
 .width-cnt {
-  width: 1025px;
+  max-width: 1025px;
   margin: 0 auto;
   position: relative;
 }
@@ -283,7 +284,7 @@ body, button, ul, li, p {
 }
 
 .width-cnt {
-  width: 1025px;
+  max-width: 1025px;
   margin: 0 auto;
   position: relative;
 }
@@ -313,12 +314,18 @@ body, button, ul, li, p {
 
 .header {
   height: 80px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  z-index: 99999;
 }
 
 .header-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 1025px;
   height: 80px;
 }
 
@@ -339,7 +346,7 @@ body, button, ul, li, p {
 }
 
 .width-cnt {
-  width: 1025px;
+  max-width: 1025px;
   margin: 0 auto;
   position: relative;
 }
@@ -486,7 +493,7 @@ body, button, ul, li, p {
 }
 
 .width-cnt {
-  width: 1025px;
+  max-width: 1025px;
   margin: 0 auto;
   position: relative;
 }
@@ -694,7 +701,7 @@ body, button, ul, li, p {
 }
 
 .width-cnt {
-  width: 1025px;
+  max-width: 1025px;
   margin: 0 auto;
   position: relative;
 }
@@ -799,7 +806,7 @@ body, button, ul, li, p {
 
 .cart_card {
   position: absolute;
-  top: 62px;
+  top: 70px;
   right: 0;
   z-index: 999;
   display: flex;
@@ -881,7 +888,7 @@ body, button, ul, li, p {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 12px 30px;
+  padding: 10px 15px;
   border-top: 1px solid #C4C4C4;
 }
 .item_cnt {
@@ -935,7 +942,9 @@ body, button, ul, li, p {
   font-size: 20px;
   font-weight: 600;
   color: #2563d7;
-  padding: 0 15px;
+  padding: 0 10px;
+  min-width: 55px;
+  text-align: center;
   line-height: 20px;
 }
 .item_cnt_btn_del {
@@ -948,7 +957,7 @@ body, button, ul, li, p {
   line-height: 20px;
   border-radius: 3px;
   background-color: rgba(248, 50, 69, 0.15);
-  margin-left: 25px;
+  margin-left: 20px;
 }
 
 .cart_empty {

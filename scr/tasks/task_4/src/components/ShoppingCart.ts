@@ -27,8 +27,8 @@ export class ShoppingCart {
                         <span>Checkout is almost done!</span>
                     </div>
                     <div class="cart_card_items_cnt" id="cart_card_items_cnt">
-                       ${this.cartItems.length != 0 ?
-                this.cartItems.map(productItem => this.renderItems(productItem)).join("")
+                       ${this.getStorageItems().length != 0 ?
+                this.getStorageItems().map(productItem => this.renderItems(productItem)).join("")
                 :
                 "<div class='cart_empty'>Cart empty</div>"}
                     </div>
@@ -87,10 +87,10 @@ export class ShoppingCart {
 
     public addItem(product: ProductItem) {
         let isProductAdded = false
-        if (this.cartItems.length == 0) {
+        if (this.getStorageItems().length == 0) {
             this.cartItems.push({amount: 1, productItem: product})
         } else {
-            this.cartItems.forEach((item) => {
+            this.getStorageItems().forEach((item) => {
                 if (item.productItem.id == product.id) {
                     item.amount += 1
                     isProductAdded = true
@@ -106,7 +106,7 @@ export class ShoppingCart {
 
     private changeAmount(id: number, operation: string) {
         if (operation === "<") {
-            this.cartItems.forEach((item) => {
+            this.getStorageItems().forEach((item) => {
                 if (item.productItem.id == id) {
                     item.amount--
                     if (item.amount <= 0) {
@@ -115,7 +115,7 @@ export class ShoppingCart {
                 }
             })
         } else if (operation === ">") {
-            this.cartItems.forEach((item) => {
+            this.getStorageItems().forEach((item) => {
                 if (item.productItem.id == id) {
                     item.amount++
                 }
@@ -125,7 +125,7 @@ export class ShoppingCart {
     }
 
     public removeItem(id: number) {
-        this.cartItems.forEach((item, index) => {
+        this.getStorageItems().forEach((item, index) => {
             if (item.productItem.id == id) {
                 this.cartItems.splice(index, 1)
                 this.cartBtnIndex.innerHTML = String(this.getItemsAmount())
@@ -135,6 +135,7 @@ export class ShoppingCart {
     }
 
     private refreshCard(): void {
+        this.setStorageItem()
         if (this.isCardVisible) {
             this.isCardVisible && this.cartCnt.removeChild(<HTMLElement>document?.getElementById('cart_card'))
             this.isCardVisible = !this.isCardVisible
@@ -144,15 +145,14 @@ export class ShoppingCart {
 
     private getItemsAmount(): number {
         let amount: number = 0
-        this.cartItems.forEach((item) => amount += Number(item.amount))
+        this.getStorageItems().forEach((item) => amount += Number(item.amount))
         return amount
     }
 
     private getTotalPrice(): number {
         let totalPrice: number = 0
-        this.cartItems.forEach((item) => totalPrice += Number(item.productItem.price * item.amount))
+        this.getStorageItems().forEach((item) => totalPrice += Number(item.productItem.price * item.amount))
         return totalPrice
-
     }
 
     private getStorageItems(): Array<CartProductItem> {
@@ -160,6 +160,6 @@ export class ShoppingCart {
     }
 
     private setStorageItem(): void {
-
+        console.log("writing to storage")
     }
 }

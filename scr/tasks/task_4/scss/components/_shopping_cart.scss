@@ -3,7 +3,7 @@
 
 .cart_card {
   position: absolute;
-  top: 62px;
+  top: 70px;
   right: 0;
   z-index: 999;
   display: flex;
@@ -73,7 +73,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 12px 30px;
+    padding: 10px 15px;
     border-top: $border-top;
   }
 
@@ -117,13 +117,15 @@
 
     &_amount {
       @include typo(20px, 600, $lightblue);
-      padding: 0 15px;
+      padding: 0 10px;
+      min-width: 55px;
+      text-align: center;
       line-height: 20px;
     }
 
     &_btn_del {
       @include cart_btn($background_red, $red);
-      margin-left: 25px;
+      margin-left: 20px;
     }
   }
 }
