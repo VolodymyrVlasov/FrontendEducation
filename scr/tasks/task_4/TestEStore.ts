@@ -14,3 +14,4 @@ export class TestEStore extends AbstractTask {
         window.open("./scr/tasks/task_4/macoutlet.html", '_blank')
     }
 }
+

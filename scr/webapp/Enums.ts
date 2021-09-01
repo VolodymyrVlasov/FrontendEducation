@@ -5,7 +5,8 @@ export enum TaskType {
     ESTORE,
     PEXELS,
     SWITCHER,
-    CUSTOM_DOM
+    CUSTOM_DOM,
+    STORAGES
 }
 
 export enum Lang {
